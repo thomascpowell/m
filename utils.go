@@ -5,9 +5,25 @@ import (
 	"os/exec"
 	"strings"
 	"strconv"
+	tea "github.com/charmbracelet/bubbletea"
 )
 
-// run command
+// tea cmd wrapper
+func RunAsCmd(name string, fn func() error) tea.Cmd {
+	return func() tea.Msg {
+		err := fn()
+		return CmdResultMsg {
+			Name: name,
+			Err: err,
+		}
+	}
+}
+type CmdResultMsg struct {
+	Name string
+	Err error
+}
+
+// os/exec call
 func run(command string) (string, error) {
 	cmd := exec.Command("osascript", "-e", command)
 	var out bytes.Buffer
@@ -16,7 +32,7 @@ func run(command string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return out.String(), nil
+	return strings.TrimRight(out.String(), "\r\n"), nil
 }
 
 // controls
@@ -118,5 +134,15 @@ func GetSongs() ([]string, error) {
 // library playback
 func PlayPlaylist(name string) error {
 	_, err := run(`tell application "Music" to play playlist "` + name + `"`)
+	return err
+}
+func PlayAlbum(name string) error {
+	_, err := run(`
+		tell application "Music"
+			set theTracks to every track whose album is "` + name + `"
+			if (count of theTracks) > 0 then
+				play item 1 of theTracks
+			end if
+		end tell`)
 	return err
 }
