@@ -10,11 +10,11 @@ import (
 
 /**
 * Sync. functions that execute AppleScript.
-* Used to fetch data and control Apple Music.
+* Used to fetch data from Apple Music.
 */
 
 // Generic os call
-func run(command string) (string, error) {
+func Run(command string) (string, error) {
 	cmd := exec.Command("osascript", "-e", command)
 	var out bytes.Buffer
 	cmd.Stdout = &out
@@ -25,74 +25,7 @@ func run(command string) (string, error) {
 	return strings.TrimRight(out.String(), "\r\n"), nil
 }
 
-// Functions for controlling music.
-func TogglePlayPause() error {
-	_, err := run(`tell application "Music" to playpause`)
-	return err
-}
-func NextTrack() error {
-	_, err := run(`tell application "Music" to next track`)
-	return err
-}
-func PreviousTrack() error {
-	_, err := run(`tell application "Music" to previous track`)
-	return err
-}
-func PlayPlaylist(name string) error {
-	_, err := run(`tell application "Music" to play playlist "` + name + `"`)
-	return err
-}
-func PlayAlbum(name string) error {
-	_, err := run(`
-		tell application "Music"
-			set theTracks to every track whose album is "` + name + `"
-			if (count of theTracks) > 0 then
-				play item 1 of theTracks
-			end if
-		end tell`)
-	return err
-}
-func PlayTrack(trackName string) error {
-	script := fmt.Sprintf(`
-		tell application "Music"
-			set t to first track whose name is "%s"
-			play t
-		end tell
-	`, trackName)
-	_, err := run(script)
-	return err
-}
 
-// Functions for fetching song info.
-func GetCurrentSongTitle() (string, error) {
-	return run(`tell application "Music" to get name of current track`)
-}
-func GetCurrentArtist() (string, error) {
-	return run(`tell application "Music" to get artist of current track`)
-}
-func GetCurrentAlbum() (string, error) {
-	return run(`tell application "Music" to get album of current track`)
-}
-func GetCurrentDuration() (string, error) {
-	out, err := run(`tell application "Music" to get duration of current track`)
-	if err != nil {
-		return "?", err
-	}
-	return ParseDuration(out), nil
-}
-func IsPlaying() (bool, error) {
-	state, err := run(`tell application "Music" to get player state`)
-	if err != nil {
-		return false, err
-	}
-	return state == "playing", nil
-}
-func IsPlayingToString(isPlaying bool) string {
-	if isPlaying {
-		return "playing"
-	}
-	return "stopped"
-} 
 
 // Returns Song struct.
 // Uses song info functions.
@@ -110,7 +43,7 @@ func GetCurrentSongObject() (Song) {
 
 // Functions for getting playlists and albums.
 func GetPlaylists() ([]string, error) {
-	raw, err := run(`tell application "Music" to get name of playlists`)
+	raw, err := Run(`tell application "Music" to get name of playlists`)
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +77,7 @@ func FetchSources() ([]Source, []Source) {
   set AppleScript's text item delimiters to "\n"
   return albumData as string
 	end tell`
-	rawAlbums, err := run(albumScript)
+	rawAlbums, err := Run(albumScript)
 	if err != nil {
 		return nil, nil
 	}
@@ -164,7 +97,7 @@ func FetchSources() ([]Source, []Source) {
 		})
 	}
 	playlistScript := `tell application "Music" to get name of playlists`
-	rawPlaylists, err := run(playlistScript)
+	rawPlaylists, err := Run(playlistScript)
 	if err != nil {
 		Log("error in getting playlists")
 		return nil, nil
@@ -217,7 +150,7 @@ func GetSongsFromSource(sourceType, sourceName string) ([]Song, error) {
 	default:
 		return nil, fmt.Errorf("unknown source type: %s", sourceType)
 	}
-	raw, err := run(script)
+	raw, err := Run(script)
 	if err != nil {
 		Log("AppleScript error: " + err.Error())
 		return nil, err
@@ -241,3 +174,41 @@ func GetSongsFromSource(sourceType, sourceName string) ([]Song, error) {
 	}
 	return songs, nil
 }
+
+
+
+
+func GetCurrentSongTitle() (string, error) {
+	return Run(`tell application "Music" to get name of current track`)
+}
+
+func GetCurrentArtist() (string, error) {
+	return Run(`tell application "Music" to get artist of current track`)
+}
+
+func GetCurrentAlbum() (string, error) {
+	return Run(`tell application "Music" to get album of current track`)
+}
+
+func GetCurrentDuration() (string, error) {
+	out, err := Run(`tell application "Music" to get duration of current track`)
+	if err != nil {
+		return "?", err
+	}
+	return ParseDuration(out), nil
+}
+
+func IsPlaying() (bool, error) {
+	state, err := Run(`tell application "Music" to get player state`)
+	if err != nil {
+		return false, err
+	}
+	return state == "playing", nil
+}
+
+func IsPlayingToString(isPlaying bool) string {
+	if isPlaying {
+		return "playing"
+	}
+	return "stopped"
+} 
