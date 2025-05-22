@@ -2,10 +2,9 @@ package main
 
 import (
 	"m/utils"
+	"m/scripts"
 	"fmt"
 	"github.com/charmbracelet/bubbles/list"
-	// tea "github.com/charmbracelet/bubbletea"
-	// "github.com/charmbracelet/lipgloss"
 )
 
 
@@ -63,7 +62,7 @@ func baseView(m model) string {
 		"%s — %s\n(%v)\n\n(a: albums, p: playlists)",
 		m.CurrentSong.Title,
 		m.CurrentSong.Artist,
-		utils.IsPlayingToString(m.IsPlaying),
+		scripts.IsPlayingToString(m.IsPlaying),
 	)
 }
 

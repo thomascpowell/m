@@ -1,6 +1,7 @@
 package main
 
 import (
+	"m/scripts"
 	"m/utils"
 
 	"time"
@@ -21,8 +22,7 @@ const (
 )
 
 type model struct {
-	Albums				[]utils.Source
-	Playlists			[]utils.Source
+	Library				utils.Library
 	CurrentSong		utils.Song
 	IsPlaying			bool
 	CurrentView		View
@@ -30,12 +30,10 @@ type model struct {
 	UIList 				list.Model
 }
 
-// starts the event loop
 func (m model) Init() tea.Cmd {
-	return tea.Batch(utils.FetchSourcesCmd(), utils.RefreshStateCmd(), tickCmd())
+	return tea.Batch(scripts.GetLibraryCmd(), scripts.RefreshStateCmd(), tickCmd())
 }
 
-// sends a tickMsg after 3 seconds
 func tickCmd() tea.Cmd {
 	return tea.Tick(time.Second*1, func(t time.Time) tea.Msg {
 		return tickMsg{}
@@ -45,13 +43,13 @@ type tickMsg struct{}
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-	case utils.SourcesMsg:
-		return m.handleSourcesMsg(msg)
-	case utils.StateMsg:
+	case scripts.LibraryMsg:
+		return m.handleLibraryMsg(msg)
+	case scripts.StateMsg:
 		return m.handleStateMsg(msg)
 	case tickMsg:
 		return m.handleTickMsg(msg)
-	case utils.ListMsg:
+	case scripts.ListMsg:
 		return m.handleListMsg(msg)
 	case tea.KeyMsg:
 		return m.handleKeyMsg(msg)
@@ -66,23 +64,26 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m model) handleSourcesMsg(msg utils.SourcesMsg) (tea.Model, tea.Cmd) {
-	m.Albums = msg.Albums
-	m.Playlists = msg.Playlists
+func (m model) handleLibraryMsg(msg scripts.LibraryMsg) (tea.Model, tea.Cmd) {
+	m.Library = utils.Library {
+		Songs: msg.Songs,
+		Albums: msg.Albums,
+		Playlists: msg.Playlists,
+	}
 	return m, nil
 }
 
-func (m model) handleStateMsg(msg utils.StateMsg) (tea.Model, tea.Cmd) {
+func (m model) handleStateMsg(msg scripts.StateMsg) (tea.Model, tea.Cmd) {
 	m.CurrentSong = msg.CurrentSong
 	m.IsPlaying = msg.IsPlaying
 	return m, nil
 }
 
 func (m model) handleTickMsg(msg tickMsg) (tea.Model, tea.Cmd) {
-	return m, tea.Batch(tickCmd(), utils.RefreshStateCmd())
+	return m, tea.Batch(tickCmd(), scripts.RefreshStateCmd())
 }
 
-func (m model) handleListMsg(msg utils.ListMsg) (tea.Model, tea.Cmd) {
+func (m model) handleListMsg(msg scripts.ListMsg) (tea.Model, tea.Cmd) {
 	m.CurrentList = utils.List(msg)
 	m.UIList = NewDetailList(m.CurrentList.Songs, m.CurrentList.Name, m.CurrentList.Owner)
 	m.CurrentView = SourceDetailView
@@ -91,7 +92,6 @@ func (m model) handleListMsg(msg utils.ListMsg) (tea.Model, tea.Cmd) {
 
 func (m model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	if m.UIList.FilterState() == list.Filtering {
-		utils.Log("Setting Filter")
 		var cmd tea.Cmd
 		m.UIList, cmd = m.UIList.Update(msg)
 		return m, cmd
@@ -101,13 +101,13 @@ func (m model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		return m, tea.Quit
 	case " ":
 		m.IsPlaying = !m.IsPlaying 
-		return m, utils.RunAsCmd("toggle", utils.TogglePlayPause)
+		return m, scripts.RunAsCmd("toggle", scripts.TogglePlayPause)
 	case "a":
-		m.UIList = NewSourceList(m.Albums, "albums")
+		m.UIList = NewSourceList(m.Library.Albums, "albums")
 		m.CurrentView = AlbumsView
 		return m, nil
 	case "p":
-		m.UIList = NewSourceList(m.Playlists, "playlists")
+		m.UIList = NewSourceList(m.Library.Playlists, "playlists")
 		m.CurrentView = PlaylistsView
 		return m, nil
 	case "b":
@@ -119,18 +119,19 @@ func (m model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		if !ok {
 			break
 		}
+		s := utils.Source {
+			Title: item.Name,
+			Artist: item.Desc,
+		}
 		switch m.CurrentView {
 		case SourceDetailView:
-			utils.Log("PlayTrack triggered for: " + item.Name)
-			return m, utils.RunAsCmd("play track", func() error {
-				return utils.PlayTrack(item.Name)
+			return m, scripts.RunAsCmd("play track", func() error {
+				return scripts.PlayTrack(item.Name)
 			})
 		case AlbumsView:
-			utils.Log("case albums view")
-			return m, utils.UpdateListCmd(utils.Album, item.Name, item.Desc)
+			return m, scripts.UpdateListCmd(utils.Album, s, m.Library)
 		case PlaylistsView:
-			utils.Log("case pl view")
-			return m, utils.UpdateListCmd(utils.Playlist, item.Name, item.Desc)
+			return m, scripts.UpdateListCmd(utils.Playlist, s, m.Library)
 		default:
 			break
 		}

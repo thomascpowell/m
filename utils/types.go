@@ -3,7 +3,6 @@ package utils
 // Represents a source.
 // Can be an album or playlist.
 // Does not list the contents.
-// Used for displaying options.
 type Source struct {
 	Title 		string
 	Artist 		string
@@ -14,7 +13,18 @@ type Song struct {
 	Title			string
 	Artist 		string
 	Duration	string
+	// new:
+	Album			string
+	Id				string
 }
+
+// Used in the model to store all fetched information.
+type Library struct {
+    Songs     []Song
+    Albums    []Source
+    Playlists []Source
+}
+
 
 // Represents a list of Songs
 // Can be an album or a playlist

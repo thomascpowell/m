@@ -1,12 +1,11 @@
-package utils
+package scripts
 
-import(
+import (
 	"fmt"
 )
 
 /**
-* Sync. functions that execute AppleScript.
-* Used to control Apple Music.
+* AppleScript wrappers for controlling Apple Music.
 */
 
 
@@ -41,13 +40,27 @@ func PlayAlbum(name string) error {
 	return err
 }
 
-func PlayTrack(trackName string) error {
+// TODO: never use this again
+func PlayTrack(name string) error {
 	script := fmt.Sprintf(`
 		tell application "Music"
 			set t to first track whose name is "%s"
 			play t
 		end tell
-	`, trackName)
+	`, name)
+	_, err := Run(script)
+	return err
+}
+
+
+// TODO: Fix
+func FastPlayTrack(name string) error {
+	script := fmt.Sprintf(`
+		tell application "Music"
+			set t to (some track whose persistent ID is "%s")
+			play t
+		end tell
+	`, name)
 	_, err := Run(script)
 	return err
 }
