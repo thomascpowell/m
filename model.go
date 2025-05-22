@@ -55,9 +55,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m.handleListMsg(msg)
 	case tea.KeyMsg:
 		return m.handleKeyMsg(msg)
-	default:
-		return m, nil
 	}
+	if m.CurrentView == AlbumsView || 
+		m.CurrentView == PlaylistsView || 
+		m.CurrentView == SourceDetailView {
+		var cmd tea.Cmd
+		m.UIList, cmd = m.UIList.Update(msg)
+		return m, cmd
+	}
+	return m, nil
 }
 
 func (m model) handleSourcesMsg(msg utils.SourcesMsg) (tea.Model, tea.Cmd) {
@@ -120,11 +126,12 @@ func (m model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 				return utils.PlayTrack(item.Name)
 			})
 		case AlbumsView:
+			utils.Log("case albums view")
 			return m, utils.UpdateListCmd(utils.Album, item.Name, item.Desc)
 		case PlaylistsView:
+			utils.Log("case pl view")
 			return m, utils.UpdateListCmd(utils.Playlist, item.Name, item.Desc)
 		default:
-			// return m, nil
 			break
 		}
 	}
