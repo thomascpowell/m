@@ -40,27 +40,15 @@ func PlayAlbum(name string) error {
 	return err
 }
 
-// TODO: never use this again
-func PlayTrack(name string) error {
-	script := fmt.Sprintf(`
-		tell application "Music"
-			set t to first track whose name is "%s"
-			play t
-		end tell
-	`, name)
-	_, err := Run(script)
-	return err
-}
-
-
-// TODO: Fix
-func FastPlayTrack(name string) error {
+func SelectTrack(id string) error {
 	script := fmt.Sprintf(`
 		tell application "Music"
 			set t to (some track whose persistent ID is "%s")
 			play t
 		end tell
-	`, name)
-	_, err := Run(script)
+	`, id)
+	_, err := Run(script)	
 	return err
 }
+
+

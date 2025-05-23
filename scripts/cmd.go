@@ -48,7 +48,7 @@ func GetLibraryCmd() tea.Cmd {
 	return func() tea.Msg {
 		library, err := GetLibraryData()
 		if err != nil {
-			utils.Log("GetLibraryData: Error")
+			utils.Log("GetLibraryData:" + err.Error())
 		}
 		return LibraryMsg(library)
 	}

@@ -46,8 +46,10 @@ func getSongs() ([]utils.Song, error) {
 
 	var songs []utils.Song
 	if err != nil {
+		utils.Log("getSongs: AS error")
 		return songs, err
 	}
+
 	lines := strings.SplitSeq(strings.TrimSpace(raw), "\n")
 	for line := range lines {
 		parts := strings.Split(line, " ||| ")
@@ -56,7 +58,7 @@ func getSongs() ([]utils.Song, error) {
 			continue
 		}
 		song := utils.Song{
-				Id: parts[0],
+				SongId: parts[0],
 				Title: parts[1],
 				Artist: parts[2],
 				Duration: ParseDuration(parts[3]),
@@ -118,7 +120,7 @@ func GetSongsFromSource(kind utils.SourceType, source utils.Source, library util
 	switch kind {
 	case utils.Album:
 		for _, song := range library.Songs {
-			if song.Album == source.Title && song.Artist == source.Artist {
+			if song.Album == source.Title /* && song.Artist == source.Artist */ {
 				result = append(result, song)
 			}
 		}

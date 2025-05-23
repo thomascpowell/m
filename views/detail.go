@@ -17,6 +17,7 @@ func NewDetailList(songs []utils.Song, name string, artist string) list.Model {
 			items[i] = ListItem {
 					Name: 	source.Title,
 					Desc:   source.Artist + " • " + source.Duration,
+					Id:			source.SongId, // Id used for FastPlayTrack with PID
 			}
 	}
 	const width = 50

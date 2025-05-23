@@ -9,6 +9,7 @@ package views
 type ListItem struct {
     Name string
     Desc string
+		Id	 string
 }
 func (a ListItem) Title() string {
     return a.Name

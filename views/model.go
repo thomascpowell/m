@@ -35,7 +35,7 @@ func (m Model) Init() tea.Cmd {
 }
 
 func tickCmd() tea.Cmd {
-	return tea.Tick(time.Second*1, func(t time.Time) tea.Msg {
+	return tea.Tick(time.Second*3, func(t time.Time) tea.Msg {
 		return tickMsg{}
 	})
 }
@@ -126,7 +126,8 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		switch m.CurrentView {
 		case SourceDetailView:
 			return m, scripts.RunAsCmd("play track", func() error {
-				return scripts.PlayTrack(item.Name)
+				utils.Log(item.Id)
+				return scripts.SelectTrack(item.Id)
 			})
 		case AlbumsView:
 			return m, scripts.UpdateListCmd(utils.Album, s, m.Library)
