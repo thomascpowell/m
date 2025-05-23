@@ -1,4 +1,4 @@
-package main
+package views
 
 import (
 	"m/scripts"
@@ -10,7 +10,7 @@ import (
 )
 
 /**
-* Contains the application model and update loop.
+* Contains the application Model and update loop.
 */
 
 type View int
@@ -21,7 +21,7 @@ const (
 	SourceDetailView
 )
 
-type model struct {
+type Model struct {
 	Library				utils.Library
 	CurrentSong		utils.Song
 	IsPlaying			bool
@@ -30,7 +30,7 @@ type model struct {
 	UIList 				list.Model
 }
 
-func (m model) Init() tea.Cmd {
+func (m Model) Init() tea.Cmd {
 	return tea.Batch(scripts.GetLibraryCmd(), scripts.RefreshStateCmd(), tickCmd())
 }
 
@@ -41,7 +41,7 @@ func tickCmd() tea.Cmd {
 }
 type tickMsg struct{}
 
-func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case scripts.LibraryMsg:
 		return m.handleLibraryMsg(msg)
@@ -64,7 +64,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m model) handleLibraryMsg(msg scripts.LibraryMsg) (tea.Model, tea.Cmd) {
+func (m Model) handleLibraryMsg(msg scripts.LibraryMsg) (tea.Model, tea.Cmd) {
 	m.Library = utils.Library {
 		Songs: msg.Songs,
 		Albums: msg.Albums,
@@ -73,24 +73,24 @@ func (m model) handleLibraryMsg(msg scripts.LibraryMsg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m model) handleStateMsg(msg scripts.StateMsg) (tea.Model, tea.Cmd) {
+func (m Model) handleStateMsg(msg scripts.StateMsg) (tea.Model, tea.Cmd) {
 	m.CurrentSong = msg.CurrentSong
 	m.IsPlaying = msg.IsPlaying
 	return m, nil
 }
 
-func (m model) handleTickMsg(msg tickMsg) (tea.Model, tea.Cmd) {
+func (m Model) handleTickMsg(msg tickMsg) (tea.Model, tea.Cmd) {
 	return m, tea.Batch(tickCmd(), scripts.RefreshStateCmd())
 }
 
-func (m model) handleListMsg(msg scripts.ListMsg) (tea.Model, tea.Cmd) {
+func (m Model) handleListMsg(msg scripts.ListMsg) (tea.Model, tea.Cmd) {
 	m.CurrentList = utils.List(msg)
 	m.UIList = NewDetailList(m.CurrentList.Songs, m.CurrentList.Name, m.CurrentList.Owner)
 	m.CurrentView = SourceDetailView
 	return m, nil
 }
 
-func (m model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
+func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	if m.UIList.FilterState() == list.Filtering {
 		var cmd tea.Cmd
 		m.UIList, cmd = m.UIList.Update(msg)

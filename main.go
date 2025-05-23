@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"m/views"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -10,7 +11,7 @@ import (
 */
 
 func main() {
-	p := tea.NewProgram(model{})
+	p := tea.NewProgram(views.Model{})
 	if _, err := p.Run(); err != nil {
 			os.Exit(1)
 	}
