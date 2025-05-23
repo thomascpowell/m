@@ -3,6 +3,8 @@ package views
 import(
 	"m/utils"
 	"github.com/charmbracelet/bubbles/list"
+	"os"
+	"golang.org/x/term"
 )
 
 /**
@@ -17,11 +19,13 @@ func NewDetailList(songs []utils.Song, name string, artist string) list.Model {
 			items[i] = ListItem {
 					Name: 	source.Title,
 					Desc:   source.Artist + " • " + source.Duration,
-					Id:			source.SongId, // Id used for FastPlayTrack with PID
+					Id:			source.SongId, // Id used for playing with PID
 			}
 	}
-	const width = 50
-	const height = 30
+	width, height, err := term.GetSize(int(os.Stdout.Fd()))
+	if err != nil {
+		utils.Log("NSL: " + err.Error())
+	}
 	l := list.New(items, list.NewDefaultDelegate(), width, height)
 	l.Title = name + " • " + artist
 	l.SetShowStatusBar(true)

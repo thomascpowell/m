@@ -53,16 +53,20 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m.handleListMsg(msg)
 	case tea.KeyMsg:
 		return m.handleKeyMsg(msg)
+	case tea.WindowSizeMsg:
+		if containsUIList(m.CurrentView) {
+			m.UIList.SetSize(msg.Width, msg.Height)
+		}
 	}
-	if m.CurrentView == AlbumsView || 
-		m.CurrentView == PlaylistsView || 
-		m.CurrentView == SourceDetailView {
+
+	if containsUIList(m.CurrentView) {
 		var cmd tea.Cmd
 		m.UIList, cmd = m.UIList.Update(msg)
 		return m, cmd
 	}
 	return m, nil
 }
+
 
 func (m Model) handleLibraryMsg(msg scripts.LibraryMsg) (tea.Model, tea.Cmd) {
 	m.Library = utils.Library {
@@ -142,5 +146,10 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	return m, cmd
 }
 
+func containsUIList(view View) bool {
+	return view == AlbumsView || 
+	view == PlaylistsView || 
+	view == SourceDetailView 
+}
 
 

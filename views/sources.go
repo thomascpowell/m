@@ -2,6 +2,8 @@ package views
 
 import (
 	"m/utils"
+	"os"
+	"golang.org/x/term"
 	"github.com/charmbracelet/bubbles/list"
 )
 
@@ -18,8 +20,11 @@ func NewSourceList(sources []utils.Source, name string) list.Model {
 					Desc:   source.Artist,
 			}
 	}
-	const width = 50
-	const height = 30
+
+	width, height, err := term.GetSize(int(os.Stdout.Fd()))
+	if err != nil {
+		utils.Log("NSL: " + err.Error())
+	}
 	l := list.New(items, list.NewDefaultDelegate(), width, height)
 	l.Title = name
 	l.SetShowStatusBar(true)
