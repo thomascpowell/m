@@ -2,9 +2,12 @@ package views
 
 import (
 	"m/utils"
+	"m/colors"
+	"m/delegates"
 	"os"
 	"golang.org/x/term"
 	"github.com/charmbracelet/bubbles/list"
+	// "github.com/charmbracelet/lipgloss"
 )
 
 /**
@@ -15,7 +18,7 @@ import (
 func NewSourceList(sources []utils.Source, name string) list.Model {
 	items := make([]list.Item, len(sources))
 	for i, source := range sources {
-			items[i] = ListItem {
+			items[i] = utils.ListItem {
 					Name: 	source.Title,
 					Desc:   source.Artist,
 			}
@@ -25,11 +28,16 @@ func NewSourceList(sources []utils.Source, name string) list.Model {
 	if err != nil {
 		utils.Log("NSL: " + err.Error())
 	}
-	l := list.New(items, list.NewDefaultDelegate(), width, height)
+
+	l := list.New(items, delegates.ListDelegate(), width, height)
 	l.Title = name
 	l.SetShowStatusBar(true)
 	l.SetFilteringEnabled(true)
 	l.SetShowHelp(true)
+	title := l.Styles.Title
+	title = title.Foreground(colors.Dark).Background(colors.Light)
+	l.Styles.Title = title
+
 	return l
 }
 

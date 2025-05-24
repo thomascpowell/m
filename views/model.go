@@ -119,7 +119,7 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		return m, nil
 	case "enter":
 		selected := m.UIList.SelectedItem()
-		item, ok := selected.(ListItem)
+		item, ok := selected.(utils.ListItem)
 		if !ok {
 			break
 		}
