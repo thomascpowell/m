@@ -2,6 +2,8 @@ package scripts
 
 import (
 	"fmt"
+	"m/utils"
+	"strings"
 )
 
 /**
@@ -29,14 +31,23 @@ func PlayPlaylist(name string) error {
 	return err
 }
 
-func PlayAlbum(name string) error {
-	_, err := Run(`
-		tell application "Music"
-			set theTracks to every track whose album is "` + name + `"
-			if (count of theTracks) > 0 then
-				play item 1 of theTracks
-			end if
-		end tell`)
+func PlaySongList(songs []utils.Song) error {
+	utils.Log(fmt.Sprintf("songs count: %d", len(songs)))
+	var script strings.Builder
+	script.WriteString(`
+	tell application "Music"
+		if exists playlist "temporary" then
+				delete playlist "temporary"
+		end if
+		set temporary to make new playlist with properties {name:"temporary"}`)
+	for _, song := range songs {
+		script.WriteString(fmt.Sprintf("\n" + `duplicate (some track whose persistent ID is "%s") to temporary`, song.SongId))
+	}
+	script.WriteString(`
+		play temporary
+	end tell`)
+	utils.Log(script.String())
+	_, err := Run(script.String())
 	return err
 }
 
@@ -51,4 +62,16 @@ func SelectTrack(id string) error {
 	return err
 }
 
+func ToggleShuffle(enable bool) error {
+	state := "false"
+	if enable {
+		state = "true"
+	}
+	_, err := Run(`
+		tell application "Music"
+			set shuffle to ` + state + `
+			set shuffle mode to songs
+		end tell`)
+	return err
+}
 

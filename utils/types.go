@@ -6,7 +6,6 @@ package utils
 type Source struct {
 	Title 		string
 	Artist 		string
-	Id				string // will be blank for playlists
 }
 
 // Represents a Song.
@@ -16,8 +15,6 @@ type Song struct {
 	Duration	string
 	Album			string
 	SongId		string
-	// new:
-	AlbumId   string
 }
 
 // Used in the model to store all fetched information.

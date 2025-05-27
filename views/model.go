@@ -114,6 +114,31 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.UIList = NewSourceList(m.Library.Playlists, "playlists")
 		m.CurrentView = PlaylistsView
 		return m, nil
+	case "s":
+		selected := m.UIList.SelectedItem()
+		item, ok := selected.(utils.ListItem)
+		if !ok {
+			utils.Log("failed to start")
+			break
+		}
+		switch m.CurrentView {
+		case AlbumsView:	
+			s := utils.Source {
+				Title: item.Name,
+				Artist: item.Desc,
+			}
+			err := scripts.PlaySongList(scripts.GetSongsFromSource(utils.Album, s, m.Library))
+			if err != nil {
+				utils.Log("AlbumS: " + err.Error())
+			}
+			return m, nil
+		case PlaylistsView:
+			err := scripts.PlayPlaylist(item.Name)
+			if err != nil {
+				utils.Log("PlaylistS: " + err.Error())
+			}
+			return m, nil
+		}
 	case "b":
 		m.CurrentView = BaseView
 		return m, nil

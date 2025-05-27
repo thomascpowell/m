@@ -6,6 +6,7 @@ package utils
 
 // Represents a m.UIList item
 // Either a playlist or Album
+// or a song, if im not mistaken right now?
 type ListItem struct {
     Name string
     Desc string

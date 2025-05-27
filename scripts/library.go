@@ -116,7 +116,6 @@ func computeAlbums(songs []utils.Song) ([]utils.Source, error) {
 
 func GetSongsFromSource(kind utils.SourceType, source utils.Source, library utils.Library) []utils.Song {
 	var result []utils.Song
-
 	switch kind {
 	case utils.Album:
 		for _, song := range library.Songs {
@@ -125,7 +124,7 @@ func GetSongsFromSource(kind utils.SourceType, source utils.Source, library util
 			}
 		}
 	case utils.Playlist:
-		songs, err := GetSongsFromPlaylist(source.Title, library)
+		songs, err := getSongsFromPlaylist(source.Title, library)
 		if err == nil {
 			result = songs
 		} else {
@@ -135,16 +134,13 @@ func GetSongsFromSource(kind utils.SourceType, source utils.Source, library util
 	return result
 }
 
-
-// POTENTIAL ISSUE: Uses string song names for comparison, not PerisistentID
-// Could result in all songs of the same name being show in a playlist if exact deplicates exist
-func GetSongsFromPlaylist(playlistName string, library utils.Library) ([]utils.Song, error) {
+func getSongsFromPlaylist(playlistName string, library utils.Library) ([]utils.Song, error) {
 	script := fmt.Sprintf(`
 		tell application "Music"
 			if not (exists playlist "%s") then return ""
 			set output to {}
 			repeat with t in tracks of playlist "%s"
-				set end of output to name of t as string
+				set end of output to persistent ID of t as string
 			end repeat
 			set AppleScript's text item delimiters to linefeed
 			return output as string
@@ -154,14 +150,14 @@ func GetSongsFromPlaylist(playlistName string, library utils.Library) ([]utils.S
 	if err != nil {
 		return nil, err
 	}
-	names := strings.Split(strings.TrimSpace(raw), "\n")
-	nameSet := make(map[string]struct{}, len(names))
-	for _, name := range names {
-		nameSet[name] = struct{}{}
+	pids := strings.Split(strings.TrimSpace(raw), "\n")
+	pidSet := make(map[string]struct{}, len(pids))
+	for _, pid := range pids {
+		pidSet[pid] = struct{}{}
 	}
 	var result []utils.Song
 	for _, song := range library.Songs {
-		if _, exists := nameSet[song.Title]; exists {
+		if _, exists := pidSet[song.SongId]; exists {
 			result = append(result, song)
 		}
 	}
