@@ -26,8 +26,18 @@ func PreviousTrack() error {
 	return err
 }
 
-func PlayPlaylist(name string) error {
+func PlayPlaylist0(name string) error {
 	_, err := Run(`tell application "Music" to play playlist "` + name + `"`)
+	return err
+}
+func PlayPlaylist(name string) error {
+	script := fmt.Sprintf(`
+		tell application "Music"
+			play playlist "%s"
+			set shuffle enabled to true
+		end tell
+	`, name)
+	_, err := Run(script)
 	return err
 }
 
@@ -39,14 +49,16 @@ func PlaySongList(songs []utils.Song) error {
 		if exists playlist "temporary" then
 				delete playlist "temporary"
 		end if
+		set shuffle enabled to false
 		set temporary to make new playlist with properties {name:"temporary"}`)
+
+
 	for _, song := range songs {
 		script.WriteString(fmt.Sprintf("\n" + `duplicate (some track whose persistent ID is "%s") to temporary`, song.SongId))
 	}
 	script.WriteString(`
 		play temporary
 	end tell`)
-	utils.Log(script.String())
 	_, err := Run(script.String())
 	return err
 }

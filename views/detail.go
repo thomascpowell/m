@@ -14,23 +14,36 @@ import(
 */
 
 
-func NewDetailList(songs []utils.Song, name string, artist string) list.Model {
-	items := make([]list.Item, len(songs))
-	for i, source := range songs {
-			items[i] = utils.ListItem {
-					Name: 	source.Title,
-					Desc:   source.Artist + " • " + source.Duration,
-					Id:			source.SongId, // Id used for playing with PID
+func NewDetailList(songs []utils.Song, name string, artist string, source utils.SourceType) list.Model {
+	// define the "play all" command
+	// see views/update for how this is used
+	source_type_string := "PLAYLIST"
+	if source == utils.Album {
+		source_type_string = "ALBUM"
+	}
+	items := make([]list.Item, len(songs)+1)
+	items[0] = utils.ListItem {
+		Name: name,
+		Desc: "Play All",
+		Id:   "PLAY_" + source_type_string,
+	}
+	
+	// add songs to the list
+	for i, song := range songs {
+			items[i+1] = utils.ListItem {
+					Name: 	song.Title,
+					Desc:   song.Artist + " • " + song.Duration,
+					Id:			song.SongId, // Id used for playing with PID
 			}
 	}
 
+	// define styles
 	width, height, err := term.GetSize(int(os.Stdout.Fd()))
 	if err != nil {
 		utils.Log("NDL: " + err.Error())
 	}
 	l := list.New(items,  styles.ListDelegate(), width, height)
 	l.Title = name + " • " + artist
-
 	title := l.Styles.Title
 	title = title.Foreground(styles.Dark).Background(styles.Light)
 	l.Styles.Title = title

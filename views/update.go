@@ -66,7 +66,7 @@ func (m Model) handleTickMsg(msg tickMsg) (tea.Model, tea.Cmd) {
 
 func (m Model) handleListMsg(msg scripts.ListMsg) (tea.Model, tea.Cmd) {
 	m.CurrentList = utils.List(msg)
-	m.UIList = NewDetailList(m.CurrentList.Songs, m.CurrentList.Name, m.CurrentList.Owner)
+	m.UIList = NewDetailList(m.CurrentList.Songs, m.CurrentList.Name, m.CurrentList.Owner, m.DetailSource)
 	m.CurrentView = SourceDetailView
 	return m, nil
 }
@@ -77,51 +77,27 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.UIList, cmd = m.UIList.Update(msg)
 		return m, cmd
 	}
+
 	switch msg.String() {
 
 	// generic keybinds
 	case "ctrl+c", "q":
 		return m, tea.Quit
+
 	case " ":
 		m.IsPlaying = !m.IsPlaying 
 		return m, scripts.RunAsCmd("toggle", scripts.TogglePlayPause)
+
 	case "a":
 		m.UIList = NewSourceList(m.Library.Albums, "albums")
 		m.CurrentView = AlbumsView
 		return m, nil
+
 	case "p":
 		m.UIList = NewSourceList(m.Library.Playlists, "playlists")
 		m.CurrentView = PlaylistsView
 		return m, nil
 
-
-	// temporary
-	// will soon move this to a dedicated item in detail view
-	case "s":
-		selected := m.UIList.SelectedItem()
-		item, ok := selected.(utils.ListItem)
-		if !ok {
-			utils.Log("failed to start")
-			break
-		}
-		switch m.CurrentView {
-		case AlbumsView:	
-			s := utils.Source {
-				Title: item.Name,
-				Artist: item.Desc,
-			}
-			err := scripts.PlaySongList(scripts.GetSongsFromSource(utils.Album, s, m.Library))
-			if err != nil {
-				utils.Log("AlbumS: " + err.Error())
-			}
-			return m, nil
-		case PlaylistsView:
-			err := scripts.PlayPlaylist(item.Name)
-			if err != nil {
-				utils.Log("PlaylistS: " + err.Error())
-			}
-			return m, nil
-		}
 	// "back" or "base"
 	case "b":
 		m.CurrentView = BaseView
@@ -149,11 +125,20 @@ func (m Model) handleSelect() (tea.Model, tea.Cmd) {
 	switch m.CurrentView {
 	case SourceDetailView:
 		return m, scripts.RunAsCmd("play track", func() error {
-			return scripts.SelectTrack(item.Id)
+			utils.Log(item.Id)
+			if item.Id == "PLAY_PLAYLIST" {
+				return scripts.PlayPlaylist(s.Title)
+			} else if item.Id == "PLAY_ALBUM" {
+				return scripts.PlaySongList(scripts.GetSongsFromSource(utils.Album, s, m.Library))
+			} else {
+				return scripts.SelectTrack(item.Id)
+			}
 		})
 	case AlbumsView:
+		m.DetailSource = utils.Album
 		return m, scripts.UpdateListCmd(utils.Album, s, m.Library)
 	case PlaylistsView:
+		m.DetailSource = utils.Playlist
 		return m, scripts.UpdateListCmd(utils.Playlist, s, m.Library)
 	default:
 		break

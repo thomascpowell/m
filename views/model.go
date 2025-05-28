@@ -20,12 +20,14 @@ const (
 )
 
 type Model struct {
-	Library				utils.Library
-	CurrentSong		utils.Song
-	IsPlaying			bool
-	CurrentView		View
-	CurrentList		utils.List
-	UIList 				list.Model
+	Library					utils.Library
+	CurrentSong			utils.Song
+	IsPlaying				bool
+	CurrentView			View
+
+	UIList 					list.Model
+	CurrentList			utils.List // UIList Contents
+	DetailSource		utils.SourceType // in SourceDetailView this will contain a SourceType
 }
 
 func (m Model) Init() tea.Cmd {
