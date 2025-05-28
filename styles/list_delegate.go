@@ -1,15 +1,11 @@
-
-package delegates
+package styles
 
 import (
 	"github.com/charmbracelet/bubbles/list"
-	// "github.com/charmbracelet/lipgloss"
-	"m/colors"
-
 )
 
 /*
-* Defines styping for a list item.
+* Defines styling for a list item.
 */
 
 func ListDelegate() list.DefaultDelegate {
@@ -20,10 +16,10 @@ func ListDelegate() list.DefaultDelegate {
 	normalTitle := d.Styles.NormalTitle
 	normalDesc := d.Styles.NormalDesc
 
-	selectedTitle = selectedTitle.Foreground(colors.Light).BorderForeground(colors.Border)
-	selectedDesc = selectedDesc.Foreground(colors.Dim).BorderForeground(colors.Border)
-	normalTitle = normalTitle.Foreground(colors.Light)
-	normalDesc = normalDesc.Foreground(colors.Dim)
+	selectedTitle = selectedTitle.Foreground(Light).BorderForeground(Border)
+	selectedDesc = selectedDesc.Foreground(Dim).BorderForeground(Border)
+	normalTitle = normalTitle.Foreground(Light)
+	normalDesc = normalDesc.Foreground(Dim)
 
 	d.Styles.SelectedTitle = selectedTitle
 	d.Styles.SelectedDesc = selectedDesc

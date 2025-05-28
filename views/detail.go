@@ -2,8 +2,7 @@ package views
 
 import(
 	"m/utils"
-	"m/colors"
-	"m/delegates"
+	"m/styles"
 	"github.com/charmbracelet/bubbles/list"
 	"os"
 	"golang.org/x/term"
@@ -24,16 +23,16 @@ func NewDetailList(songs []utils.Song, name string, artist string) list.Model {
 					Id:			source.SongId, // Id used for playing with PID
 			}
 	}
+
 	width, height, err := term.GetSize(int(os.Stdout.Fd()))
 	if err != nil {
-		utils.Log("NSL: " + err.Error())
+		utils.Log("NDL: " + err.Error())
 	}
-	l := list.New(items,  delegates.ListDelegate(), width, height)
+	l := list.New(items,  styles.ListDelegate(), width, height)
 	l.Title = name + " • " + artist
 
-
 	title := l.Styles.Title
-	title = title.Foreground(colors.Dark).Background(colors.Light)
+	title = title.Foreground(styles.Dark).Background(styles.Light)
 	l.Styles.Title = title
 	l.SetShowStatusBar(true)
 	l.SetFilteringEnabled(true)

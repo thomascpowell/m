@@ -2,8 +2,7 @@ package views
 
 import (
 	"m/utils"
-	"m/colors"
-	"m/delegates"
+	"m/styles"
 	"os"
 	"golang.org/x/term"
 	"github.com/charmbracelet/bubbles/list"
@@ -29,13 +28,13 @@ func NewSourceList(sources []utils.Source, name string) list.Model {
 		utils.Log("NSL: " + err.Error())
 	}
 
-	l := list.New(items, delegates.ListDelegate(), width, height)
+	l := list.New(items, styles.ListDelegate(), width, height)
 	l.Title = name
 	l.SetShowStatusBar(true)
 	l.SetFilteringEnabled(true)
 	l.SetShowHelp(true)
 	title := l.Styles.Title
-	title = title.Foreground(colors.Dark).Background(colors.Light)
+	title = title.Foreground(styles.Dark).Background(styles.Light)
 	l.Styles.Title = title
 
 	return l
