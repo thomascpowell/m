@@ -5,7 +5,7 @@ Features:
 - Playback controls
 - Soon: CLI arguments
 
-`
+```
 install script will go here | sh
-`
+```
 
