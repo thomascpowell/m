@@ -1,4 +1,4 @@
-A cli application for controlling music.app on macOS. 
+A CLI application for controlling music.app on macOS. 
 
 Features:
 - Clean TUI for browsing library
