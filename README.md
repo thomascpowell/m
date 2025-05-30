@@ -1,4 +1,4 @@
-A cli application for controlling music.app on macos. 
+A cli application for controlling music.app on macOS. 
 
 Features:
 - Clean TUI for browsing library
@@ -8,4 +8,9 @@ Features:
 ```
 install script will go here | sh
 ```
+
+Details:
+- Built with Golang
+- Uses AppleScript to control music.app
+- Caches library data on disk
 
