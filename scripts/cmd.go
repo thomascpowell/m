@@ -72,7 +72,7 @@ type LibraryMsg utils.Library
 func RefreshLibraryCmd() tea.Cmd {
 	CACHE_PATH := utils.GetGlobalCachePath()
 	return func() tea.Msg {
-		time.Sleep(10 * time.Second)
+		time.Sleep(30 * time.Second)
 		library, err := GetLibraryData()
 		if err != nil {
 				utils.Log("RefreshLibraryCmd:" + err.Error())

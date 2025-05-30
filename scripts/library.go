@@ -178,14 +178,20 @@ func ParseDuration(duration string) string {
 }
 
 // saves the Library object to improve load time
+// uses a temp file to prevent corruption in case of interuption
+// atomic rename removes the need for an exit handler
 func SaveLibrary(library *utils.Library, path string) error {
-	file, err := os.Create(path)
+	temp_path := path + ".tmp"
+	file, err := os.Create(temp_path)
 	if err != nil {
 		return err
 	}
 	defer file.Close()
 	encoder := gob.NewEncoder(file)
-	return encoder.Encode(library)
+	if err := encoder.Encode(library); err != nil {
+		return err
+	}
+	return os.Rename(temp_path, path)
 }
 
 // loads library object from disk
