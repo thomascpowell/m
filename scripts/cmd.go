@@ -2,6 +2,7 @@ package scripts
 
 import (
 	"m/utils"
+	"time"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -43,18 +44,45 @@ type StateMsg struct {
 }
 
 
-// Handles initial loading of music sources.
+// handles initial loading of music sources
+// loads from cache initially
 func GetLibraryCmd() tea.Cmd {
+	CACHE_PATH := utils.GetGlobalCachePath()
 	return func() tea.Msg {
-		library, err := GetLibraryData()
+		var(
+			library *utils.Library
+			err error
+		)
+		if utils.FileExists(CACHE_PATH) {
+			library, err = LoadLibrary(CACHE_PATH)
+		} else {
+			library, err = GetLibraryData()
+				_ = SaveLibrary(library, CACHE_PATH)
+		}
 		if err != nil {
 			utils.Log("GetLibraryData:" + err.Error())
+			return LibraryMsg(utils.Library{})
 		}
-		return LibraryMsg(library)
+		return LibraryMsg(*library)
 	}
 }
 type LibraryMsg utils.Library
 
+// handles refreshing the library
+// (initial loading is from cache)
+func RefreshLibraryCmd() tea.Cmd {
+	CACHE_PATH := utils.GetGlobalCachePath()
+	return func() tea.Msg {
+		time.Sleep(10 * time.Second)
+		library, err := GetLibraryData()
+		if err != nil {
+				utils.Log("RefreshLibraryCmd:" + err.Error())
+				return nil
+		}
+		_ = SaveLibrary(library, CACHE_PATH)
+		return LibraryMsg(*library)
+	}
+}
 
 // Handles data fetching for playlist or album views.
 // Sends List struct to update the CurrentList.

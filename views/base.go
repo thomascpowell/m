@@ -15,7 +15,7 @@ func ShowBaseView(m Model) string {
 		return "not playing"
 	}
 	return fmt.Sprintf(
-		"%s — %s\n(%v)\n\n(a: albums, p: playlists)",
+		"%s — %s\n(%s)\n\n(a: albums, p: playlists)",
 		m.CurrentSong.Title,
 		m.CurrentSong.Artist,
 		scripts.IsPlayingToString(m.IsPlaying),

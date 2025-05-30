@@ -30,11 +30,11 @@ func NewDetailList(songs []utils.Song, name string, artist string, source utils.
 	
 	// add songs to the list
 	for i, song := range songs {
-			items[i+1] = utils.ListItem {
-					Name: 	song.Title,
-					Desc:   song.Artist + " • " + song.Duration,
-					Id:			song.SongId, // Id used for playing with PID
-			}
+		items[i+1] = utils.ListItem {
+			Name: 	song.Title,
+			Desc:   song.Artist + " • " + song.Duration,
+			Id:			song.SongId, // Id used for playing with PID
+		}
 	}
 
 	// define styles

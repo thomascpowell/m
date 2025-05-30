@@ -4,6 +4,7 @@ import (
 	"m/scripts"
 	"m/utils"
 	"time"
+	"fmt"
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -15,7 +16,8 @@ import (
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-	case scripts.LibraryMsg:
+	case scripts.LibraryMsg:		
+		utils.Log("Recieved a LibraryMsg")
 		return m.handleLibraryMsg(msg)
 	case scripts.StateMsg:
 		return m.handleStateMsg(msg)
@@ -51,6 +53,8 @@ func (m Model) handleLibraryMsg(msg scripts.LibraryMsg) (tea.Model, tea.Cmd) {
 		Albums: msg.Albums,
 		Playlists: msg.Playlists,
 	}
+	utils.Log(fmt.Sprintf("handleLibraryMsg: songs=%d albums=%d playlists=%d", 
+		len(msg.Songs), len(msg.Albums), len(msg.Playlists)))
 	return m, nil
 }
 
@@ -77,27 +81,21 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.UIList, cmd = m.UIList.Update(msg)
 		return m, cmd
 	}
-
 	switch msg.String() {
-
 	// generic keybinds
 	case "ctrl+c", "q":
 		return m, tea.Quit
-
 	case " ":
 		m.IsPlaying = !m.IsPlaying 
 		return m, scripts.RunAsCmd("toggle", scripts.TogglePlayPause)
-
 	case "a":
 		m.UIList = NewSourceList(m.Library.Albums, "albums")
 		m.CurrentView = AlbumsView
 		return m, nil
-
 	case "p":
 		m.UIList = NewSourceList(m.Library.Playlists, "playlists")
 		m.CurrentView = PlaylistsView
 		return m, nil
-
 	// "back" or "base"
 	case "b":
 		m.CurrentView = BaseView

@@ -1,5 +1,9 @@
 package utils
 
+/**
+* Contains types used throughout.
+*/
+
 // Represents a source.
 // Can be an album or playlist.
 // Does not list the contents.
@@ -23,7 +27,6 @@ type Library struct {
     Albums    []Source
     Playlists []Source
 }
-
 
 // Represents a list of Songs
 // Can be an album or a playlist

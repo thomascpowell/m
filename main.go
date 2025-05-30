@@ -7,7 +7,7 @@ import (
 )
 
 /**
-* Entry.
+* Starts the application.
 */
 
 func main() {

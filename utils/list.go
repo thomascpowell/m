@@ -6,18 +6,17 @@ package utils
 
 // Represents a m.UIList item
 // Either a playlist or Album
-// or a song, if im not mistaken right now?
 type ListItem struct {
-    Name string
-    Desc string
-		Id	 string
+	Name string
+	Desc string
+	Id	 string
 }
 func (a ListItem) Title() string {
-    return a.Name
+	return a.Name
 }
 func (a ListItem) Description() string {
-    return a.Desc
+	return a.Desc
 }
 func (a ListItem) FilterValue() string {
-    return a.Name
+	return a.Name
 }

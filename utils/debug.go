@@ -18,6 +18,6 @@ func Log(msg string) {
 	}
 	f, _ := os.OpenFile("m.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	defer f.Close()
-	divider := "\nLog:\n"
+	divider := "\n(MESSAGE) "
 	_, _ = f.WriteString(divider + msg + "\n")
 }

@@ -31,6 +31,11 @@ type Model struct {
 }
 
 func (m Model) Init() tea.Cmd {
-	return tea.Batch(scripts.GetLibraryCmd(), scripts.RefreshStateCmd(), TickCmd())
+	return tea.Batch(
+		scripts.GetLibraryCmd(), 
+		scripts.RefreshStateCmd(),
+		scripts.RefreshLibraryCmd(),
+		TickCmd(),
+	)
 }
 

@@ -9,7 +9,6 @@ import (
 */
 
 
-
 func GetCurrentSongObject() (utils.Song) {
 	title, _ := GetCurrentSongTitle()
 	artist, _ := GetCurrentArtist()
