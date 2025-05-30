@@ -29,11 +29,10 @@ type CmdResultMsg struct {}
 // Sends StateMsg with updated results.
 func RefreshStateCmd() tea.Cmd {
 	return func() tea.Msg {
-		playing, _ := IsPlaying()
-		song := GetCurrentSongObject()
+		current_song, player_state := GetPlayerState()
 		return StateMsg { 
-			IsPlaying:  playing,
-			CurrentSong: song,
+			IsPlaying:  player_state,
+			CurrentSong: current_song,
 		}
 	}
 }

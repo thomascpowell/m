@@ -41,7 +41,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func TickCmd() tea.Cmd {
-	return tea.Tick(time.Second*3, func(t time.Time) tea.Msg {
+	return tea.Tick(time.Second*5, func(t time.Time) tea.Msg {
 		return tickMsg{}
 	})
 }
