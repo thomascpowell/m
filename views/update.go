@@ -48,6 +48,7 @@ func TickCmd() tea.Cmd {
 type tickMsg struct{}
 
 func (m Model) handleLibraryMsg(msg scripts.LibraryMsg) (tea.Model, tea.Cmd) {
+	m.UIList = NewBaseList()
 	m.Library = utils.Library {
 		Songs: msg.Songs,
 		Albums: msg.Albums,
@@ -98,6 +99,7 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		return m, nil
 	// "back" or "base"
 	case "b":
+		m.UIList = NewBaseList()
 		m.CurrentView = BaseView
 		return m, nil
 	// select item

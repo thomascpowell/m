@@ -1,24 +1,62 @@
 package views
 
 import (
-	"m/scripts"
-	"fmt"
-
+	"m/utils"
+	"m/styles"
+	// "m/scripts"
+	// "fmt"
+	"os"
+	"golang.org/x/term"
+	"github.com/charmbracelet/bubbles/list"
 )
+
+
 /**
 * Base View.
 * Shows the current player state.
 */
 
-func ShowBaseView(m Model) string {
-	if m.CurrentSong.Title == "" {
-		return "not playing"
-	}
-	return fmt.Sprintf(
-		"%s — %s\n(%s)\n\n(a: albums, p: playlists)",
-		m.CurrentSong.Title,
-		m.CurrentSong.Artist,
-		scripts.IsPlayingToString(m.IsPlaying),
-	)
+
+
+type BaseListItem struct {
+	Name string
+	Action string
+}
+func (a BaseListItem) Title() string {
+	return a.Name
+}
+func (i BaseListItem) Description() string { return "" }
+func (a BaseListItem) FilterValue() string {
+	return a.Name
 }
 
+func NewBaseList() list.Model {
+	items := []list.Item{
+		BaseListItem{
+			Name:   "Hello",
+			Action: "NO_ACTION",
+		},
+	}
+
+	width, height, err := term.GetSize(int(os.Stdout.Fd()))
+	if err != nil {
+		utils.Log("NSL: " + err.Error())
+	}
+
+	l := list.New(items, list.NewDefaultDelegate(), width, height)
+	l.Title = "Options:"
+	l.SetShowStatusBar(false)
+	l.SetFilteringEnabled(false)
+	l.SetShowHelp(true)
+
+	title := l.Styles.Title
+	title = title.Foreground(styles.Dark).Background(styles.Light)
+	l.Styles.Title = title
+	return l
+}
+
+// Returns the UIList view.
+// m.CurrentList stores data used here.
+func ShowBaseView(m Model) string {
+	return m.UIList.View()
+}
