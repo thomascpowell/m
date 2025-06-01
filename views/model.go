@@ -35,6 +35,7 @@ func (m Model) Init() tea.Cmd {
 		scripts.GetLibraryCmd(), 
 		scripts.RefreshStateCmd(),
 		scripts.RefreshLibraryCmd(),
+		scripts.InitBaseListCmd(),
 		TickCmd(),
 	)
 }

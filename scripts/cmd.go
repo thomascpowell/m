@@ -97,3 +97,11 @@ func UpdateListCmd(kind utils.SourceType, source utils.Source, library utils.Lib
 	}
 }
 type ListMsg utils.List
+
+// prompts the update loop to initialize the base view.
+func InitBaseListCmd() tea.Cmd {
+	return func() tea.Msg {
+		return InitBaseListMsg{}
+	}
+}
+type InitBaseListMsg struct{}

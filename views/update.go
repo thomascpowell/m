@@ -22,11 +22,13 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case scripts.StateMsg:
 		return m.handleStateMsg(msg)
 	case tickMsg:
-		return m.handleTickMsg(msg)
+		return m.handleTickMsg()
 	case scripts.ListMsg:
 		return m.handleListMsg(msg)
 	case tea.KeyMsg:
 		return m.handleKeyMsg(msg)
+	case scripts.InitBaseListMsg:
+		return m.handleInitBaseListMsg()
 	case tea.WindowSizeMsg:
 		if containsUIList(m.CurrentView) {
 			m.UIList.SetSize(msg.Width, msg.Height)
@@ -48,7 +50,6 @@ func TickCmd() tea.Cmd {
 type tickMsg struct{}
 
 func (m Model) handleLibraryMsg(msg scripts.LibraryMsg) (tea.Model, tea.Cmd) {
-	m.UIList = NewBaseList()
 	m.Library = utils.Library {
 		Songs: msg.Songs,
 		Albums: msg.Albums,
@@ -65,7 +66,7 @@ func (m Model) handleStateMsg(msg scripts.StateMsg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m Model) handleTickMsg(msg tickMsg) (tea.Model, tea.Cmd) {
+func (m Model) handleTickMsg() (tea.Model, tea.Cmd) {
 	return m, tea.Batch(TickCmd(), scripts.RefreshStateCmd())
 }
 
@@ -146,7 +147,10 @@ func (m Model) handleSelect() (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-
+func (m *Model) handleInitBaseListMsg() (tea.Model, tea.Cmd) {
+	m.UIList = NewBaseList()
+	return m, nil
+}
 
 func containsUIList(view View) bool {
 	return view == AlbumsView || 
