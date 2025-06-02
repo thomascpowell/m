@@ -1,8 +1,9 @@
-package views
+package app
 
 import (
 	"m/scripts"
 	"m/utils"
+	"m/lists"
 	"time"
 	"fmt"
 	"github.com/charmbracelet/bubbles/list"
@@ -72,7 +73,7 @@ func (m Model) handleTickMsg() (tea.Model, tea.Cmd) {
 
 func (m Model) handleListMsg(msg scripts.ListMsg) (tea.Model, tea.Cmd) {
 	m.CurrentList = utils.List(msg)
-	m.UIList = NewDetailList(m.CurrentList.Songs, m.CurrentList.Name, m.CurrentList.Owner, m.DetailSource)
+	m.UIList = lists.NewDetailList(m.CurrentList.Songs, m.CurrentList.Name, m.CurrentList.Owner, m.DetailSource)
 	m.CurrentView = SourceDetailView
 	return m, nil
 }
@@ -91,16 +92,16 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.IsPlaying = !m.IsPlaying 
 		return m, scripts.RunAsCmd("toggle", scripts.TogglePlayPause)
 	case "a":
-		m.UIList = NewSourceList(m.Library.Albums, "albums")
+		m.UIList = lists.NewSourceList(m.Library.Albums, "albums")
 		m.CurrentView = AlbumsView
 		return m, nil
 	case "p":
-		m.UIList = NewSourceList(m.Library.Playlists, "playlists")
+		m.UIList = lists.NewSourceList(m.Library.Playlists, "playlists")
 		m.CurrentView = PlaylistsView
 		return m, nil
 	// "back" or "base"
 	case "b":
-		m.UIList = NewBaseList()
+		m.UIList = lists.NewBaseList()
 		m.CurrentView = BaseView
 		return m, nil
 	// select item
@@ -115,7 +116,7 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 
 func (m Model) handleSelect() (tea.Model, tea.Cmd) {
 	selected := m.UIList.SelectedItem()
-	item, ok := selected.(utils.ListItem)
+	item, ok := selected.(lists.ListItem)
 	if !ok {
 		return m, nil
 	}
@@ -148,7 +149,7 @@ func (m Model) handleSelect() (tea.Model, tea.Cmd) {
 }
 
 func (m *Model) handleInitBaseListMsg() (tea.Model, tea.Cmd) {
-	m.UIList = NewBaseList()
+	m.UIList = lists.NewBaseList()
 	return m, nil
 }
 

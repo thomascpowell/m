@@ -8,6 +8,7 @@ import (
 * Error logging method.
 */
 
+
 // if this is true, a log file (m.txt) will be created in the event of a (handled) error
 // diable for distribution?
 const ENABLE_LOGS = true

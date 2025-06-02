@@ -1,12 +1,14 @@
-package styles
+package lists
 
 import (
+	"m/styles"
 	"github.com/charmbracelet/bubbles/list"
 )
 
 /*
 * Defines styling for a list item.
 */
+
 
 func ListDelegate() list.DefaultDelegate {
 	d := list.NewDefaultDelegate()
@@ -16,10 +18,10 @@ func ListDelegate() list.DefaultDelegate {
 	normalTitle := d.Styles.NormalTitle
 	normalDesc := d.Styles.NormalDesc
 
-	selectedTitle = selectedTitle.Foreground(Light).BorderForeground(Border)
-	selectedDesc = selectedDesc.Foreground(Dim).BorderForeground(Border)
-	normalTitle = normalTitle.Foreground(Light)
-	normalDesc = normalDesc.Foreground(Dim)
+	selectedTitle = selectedTitle.Foreground(styles.Light).BorderForeground(styles.Border)
+	selectedDesc = selectedDesc.Foreground(styles.Dim).BorderForeground(styles.Border)
+	normalTitle = normalTitle.Foreground(styles.Light)
+	normalDesc = normalDesc.Foreground(styles.Dim)
 
 	d.Styles.SelectedTitle = selectedTitle
 	d.Styles.SelectedDesc = selectedDesc

@@ -1,8 +1,9 @@
-package views
+package app
 
 /**
 * tea View() function.
 */
+
 
 func (m Model) View() string {
 	switch m.CurrentView {
@@ -15,4 +16,16 @@ func (m Model) View() string {
 	default:
 		return ""
 	}
+}
+
+func ShowSourcesView(m Model) string {
+	return m.UIList.View()
+}
+
+func ShowBaseView(m Model) string {
+	return m.UIList.View()
+}
+
+func ShowDetailView(m Model) string {
+	return m.UIList.View()
 }

@@ -42,7 +42,6 @@ type StateMsg struct {
 	IsPlaying		bool
 }
 
-
 // handles initial loading of music sources
 // loads from cache initially
 func GetLibraryCmd() tea.Cmd {
