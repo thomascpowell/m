@@ -18,7 +18,6 @@ import (
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case scripts.LibraryMsg:		
-		utils.Log("Recieved a LibraryMsg")
 		return m.handleLibraryMsg(msg)
 	case scripts.StateMsg:
 		return m.handleStateMsg(msg)
@@ -35,11 +34,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.UIList.SetSize(msg.Width, msg.Height-4)
 		}
 		return m, nil
-	}
-	if containsUIList(m.CurrentView) {
-		var cmd tea.Cmd
-		m.UIList, cmd = m.UIList.Update(msg)
-		return m, cmd
 	}
 	return m, nil
 }
