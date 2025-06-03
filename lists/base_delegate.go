@@ -3,6 +3,7 @@ package lists
 import (
 	"fmt"
 	"io"
+	"m/styles"
 	"strings"
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"	
@@ -10,12 +11,12 @@ import (
 )
 
 var (
-	titleStyle = lipgloss.NewStyle().MarginLeft(2)
 	itemStyle = lipgloss.NewStyle().PaddingLeft(4)
-	selectedItemStyle = lipgloss.NewStyle().PaddingLeft(2).Foreground(lipgloss.Color("170"))
-	paginationStyle = list.DefaultStyles().PaginationStyle.PaddingLeft(4)
-	helpStyle = list.DefaultStyles().HelpStyle.PaddingLeft(4).PaddingBottom(1)
-	quitTextStyle = lipgloss.NewStyle().Margin(1, 0, 2, 4)
+	selectedItemStyle = lipgloss.NewStyle().PaddingLeft(2).Foreground(styles.Light)
+	//
+	// paginationStyle = list.DefaultStyles().PaginationStyle.PaddingLeft(4)
+	// helpStyle = list.DefaultStyles().HelpStyle.PaddingLeft(4).PaddingBottom(1)
+	// quitTextStyle = lipgloss.NewStyle().Margin(1, 0, 2, 4)
 )
 
 type itemDelegate struct{}
@@ -39,4 +40,6 @@ func (d itemDelegate) Render(w io.Writer, m list.Model, index int, listItem list
 	fmt.Fprint(w, fn(str))
 }
 
-
+func BaseDelegate() itemDelegate {
+	return itemDelegate{}
+}

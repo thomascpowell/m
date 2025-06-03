@@ -19,6 +19,8 @@ const (
 )
 
 type Model struct {
+	Loaded					bool
+
 	Library					utils.Library
 	CurrentSong			utils.Song
 	IsPlaying				bool

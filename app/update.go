@@ -31,9 +31,10 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case scripts.InitBaseListMsg:
 		return m.handleInitBaseListMsg()
 	case tea.WindowSizeMsg:
-		if containsUIList(m.CurrentView) {
-			m.UIList.SetSize(msg.Width, msg.Height)
+		if containsUIList(m.CurrentView) && m.Loaded {
+			m.UIList.SetSize(msg.Width, msg.Height-4)
 		}
+		return m, nil
 	}
 	if containsUIList(m.CurrentView) {
 		var cmd tea.Cmd
@@ -150,13 +151,15 @@ func (m Model) handleSelect() (tea.Model, tea.Cmd) {
 
 func (m *Model) handleInitBaseListMsg() (tea.Model, tea.Cmd) {
 	m.UIList = lists.NewBaseList()
+	m.Loaded = true
 	return m, nil
 }
 
 func containsUIList(view View) bool {
 	return view == AlbumsView || 
 	view == PlaylistsView || 
-	view == SourceDetailView 
+	view == SourceDetailView ||
+	view == BaseView
 }
 
 

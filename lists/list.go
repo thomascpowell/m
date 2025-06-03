@@ -36,6 +36,7 @@ func NewDetailList(songs []utils.Song, name string, artist string, source utils.
 	if source == utils.Album {
 		source_type_string = "ALBUM"
 	}
+
 	items := make([]list.Item, len(songs)+1)
 	items[0] = ListItem {
 		Name: name,

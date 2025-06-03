@@ -5,6 +5,7 @@ import(
 	"m/styles"
 	// "m/scripts"
 	// "fmt"
+	"github.com/charmbracelet/lipgloss"
 	"os"
 	"golang.org/x/term"
 	"github.com/charmbracelet/bubbles/list"
@@ -27,7 +28,15 @@ func (a BaseListItem) FilterValue() string {
 func NewBaseList() list.Model {
 	items := []list.Item{
 		BaseListItem{
-			Name:   "Hello",
+			Name:   "Play",
+			Action: "NO_ACTION",
+		},
+		BaseListItem{
+			Name:   "Pause",
+			Action: "NO_ACTION",
+		},
+		BaseListItem{
+			Name:   "Example",
 			Action: "NO_ACTION",
 		},
 	}
@@ -35,13 +44,12 @@ func NewBaseList() list.Model {
 	if err != nil {
 		utils.Log("NSL: " + err.Error())
 	}
-	l := list.New(items, list.NewDefaultDelegate(), width, height)
+	l := list.New(items, BaseDelegate(), width, height-4)
 	l.Title = "Options:"
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(false)
 	l.SetShowHelp(true)
-	title := l.Styles.Title
-	title = title.Foreground(styles.Dark).Background(styles.Light)
-	l.Styles.Title = title
+	title_style := lipgloss.NewStyle().MarginLeft(0).Foreground(styles.Light)
+	l.Styles.Title = title_style
 	return l
 }
