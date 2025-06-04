@@ -50,3 +50,15 @@ const (
 	Album = iota
 	Playlist
 )
+
+
+type View int
+const (
+	Blank View = iota
+	Menu
+	Albums
+	Playlists
+	AlbumDetail
+	PlaylistDetail
+)
+

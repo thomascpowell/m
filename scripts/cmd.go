@@ -4,6 +4,7 @@ import (
 	"m/utils"
 	"time"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/bubbles/list"
 )
 
 /**
@@ -104,3 +105,18 @@ func InitBaseListCmd() tea.Cmd {
 	}
 }
 type InitBaseListMsg struct{}
+
+// sends a cmd -> msg that directs Update() to change the view
+// used to update state, including CurrentView and UIList
+func ChangeViewCmd(view utils.View, list list.Model) tea.Cmd {
+	return func() tea.Msg {
+		return ChangeViewMsg {
+			View: view,
+			List: list,
+		}
+	}
+} 
+type ChangeViewMsg struct {
+	View utils.View // the view to change to
+	List list.Model // the list to be placed in m.UIList
+}

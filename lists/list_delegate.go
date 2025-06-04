@@ -7,6 +7,7 @@ import (
 
 /*
 * Defines styling for a list item.
+* Used in all views but the base.
 */
 
 

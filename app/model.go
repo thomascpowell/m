@@ -10,21 +10,13 @@ import (
 */
 
 
-type View int
-const (
-	BaseView View = iota
-	AlbumsView
-	PlaylistsView
-	SourceDetailView
-)
-
 type Model struct {
 	Loaded					bool
 
 	Library					utils.Library
 	CurrentSong			utils.Song
 	IsPlaying				bool
-	CurrentView			View
+	CurrentView			utils.View
 
 	UIList 					list.Model
 	CurrentList			utils.List // UIList Contents

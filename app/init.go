@@ -2,6 +2,8 @@ package app
 
 import(
 	"m/scripts"
+	"m/views"
+	"m/utils"
 	tea "github.com/charmbracelet/bubbletea"
 
 )
@@ -15,7 +17,7 @@ func (m Model) Init() tea.Cmd {
 		scripts.GetLibraryCmd(), 
 		scripts.RefreshStateCmd(),
 		scripts.RefreshLibraryCmd(),
-		scripts.InitBaseListCmd(),
+		scripts.ChangeViewCmd(utils.Menu, views.NewMenuList()),
 		TickCmd(),
 	)
 }

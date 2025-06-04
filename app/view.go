@@ -3,6 +3,7 @@ package app
 import(
 	"fmt"
 	"m/scripts"
+	"m/utils"
 	"github.com/charmbracelet/lipgloss"
 )
 
@@ -12,26 +13,21 @@ import(
 
 
 func (m Model) View() string {
-	if !m.Loaded {
-		return ""
-	}
 	switch m.CurrentView {
-	case BaseView:
-		return ShowBaseView(m)
-	case AlbumsView, PlaylistsView:
-		return ShowSourcesView(m)
-	case SourceDetailView:
-		return ShowDetailView(m)
+	case utils.Album, utils.Playlists, utils.PlaylistDetail, utils.AlbumDetail:
+		return ShowView(m)
+	case utils.Menu:
+		return ShowMenuView(m)
 	default:
 		return ""
 	}
 }
 
-func ShowSourcesView(m Model) string {
+func ShowView(m Model) string {
 	return m.UIList.View()
 }
 
-func ShowBaseView(m Model) string {
+func ShowMenuView(m Model) string {
 	text := fmt.Sprintf(
 			"%s — %s\n(%s)\n\n",
 			m.CurrentSong.Title,
@@ -41,6 +37,3 @@ func ShowBaseView(m Model) string {
 	return lipgloss.JoinVertical(lipgloss.Left, now_playing, m.UIList.View())
 }
 
-func ShowDetailView(m Model) string {
-	return m.UIList.View()
-}
