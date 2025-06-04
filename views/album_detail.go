@@ -9,7 +9,7 @@ import(
 	"golang.org/x/term"
 )
 
-func NewDetailList(songs []utils.Song, name string, artist string) list.Model {
+func NewAlbumDetailList(songs []utils.Song, name string, artist string) list.Model {
 	source_type_string := "ALBUM"
 	items := make([]list.Item, len(songs)+1)
 

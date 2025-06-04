@@ -2,10 +2,12 @@ package app
 
 import (
 	"m/scripts"
+	"m/views"
 	"m/utils"
 	"time"
 	"fmt"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/bubbles/list"
 )
 
 /**
@@ -31,19 +33,17 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case scripts.ChangeViewMsg:
 		return m.handleChangeViewMsg(msg)
 	}
-
-	
-
-
-
-
-	return m, nil
+	// pass other keypresses to UIList
+	var cmd tea.Cmd
+	m.UIList, cmd = m.UIList.Update(msg)
+	return m, cmd
 }
 
-func (m Model) handleChangeViewMsg(msg scripts.ChangeViewMsg) (tea.Model, tea.Cmd) {
+func (m *Model) handleChangeViewMsg(msg scripts.ChangeViewMsg) (tea.Model, tea.Cmd) {
+	utils.Log("HCVM")
 	m.CurrentView = msg.View
 	m.UIList = msg.List
-	return m, nil
+	return *m, nil
 }
 
 func TickCmd() tea.Cmd {
@@ -79,8 +79,30 @@ func containsUIList(view utils.View) bool {
 }
 
 func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
-	// do stuff
-	return m, nil
+	if m.UIList.FilterState() == list.Filtering {
+		var cmd tea.Cmd
+		m.UIList, cmd = m.UIList.Update(msg)
+		return m, cmd
+	}
+
+	switch msg.String() {
+	case "ctrl+c", "q":
+		return m, tea.Quit
+	case " ":
+		m.IsPlaying = !m.IsPlaying 
+		return m, scripts.RunAsCmd("toggle", scripts.TogglePlayPause)
+	case "a":
+		utils.Log("a pressed")
+		return m, scripts.ChangeViewCmd(utils.Albums, views.NewAlbumList(m.Library.Albums))
+
+	case "p":
+		utils.Log("p pressed")
+		return m, scripts.ChangeViewCmd(utils.Playlists, views.NewPlaylistList(m.Library.Playlists))
+	}
+
+	var cmd tea.Cmd
+	m.UIList, cmd = m.UIList.Update(msg)
+	return m, cmd
 }
 
 

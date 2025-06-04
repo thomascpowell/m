@@ -14,7 +14,7 @@ import(
 
 func (m Model) View() string {
 	switch m.CurrentView {
-	case utils.Album, utils.Playlists, utils.PlaylistDetail, utils.AlbumDetail:
+	case utils.Albums, utils.Playlists, utils.PlaylistDetail, utils.AlbumDetail:
 		return ShowView(m)
 	case utils.Menu:
 		return ShowMenuView(m)
