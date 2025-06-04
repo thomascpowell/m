@@ -88,7 +88,7 @@ func RefreshLibraryCmd() tea.Cmd {
 // Updates CurrentList to specified album or playlist.
 func UpdateListCmd(kind utils.SourceType, source utils.Source, library utils.Library) tea.Cmd {
 	return func() tea.Msg {
-		songs := GetSongsFromSource(kind, source, library)
+		songs := GetSongsFromSource(kind, source.Title, library)
 		return ListMsg {
 			Name: source.Title,
 			Owner: source.Artist,

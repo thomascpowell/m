@@ -114,17 +114,17 @@ func computeAlbums(songs []utils.Song) ([]utils.Source, error) {
 	return albums, nil
 }
 
-func GetSongsFromSource(kind utils.SourceType, source utils.Source, library utils.Library) []utils.Song {
+func GetSongsFromSource(kind utils.SourceType, title string, library utils.Library) []utils.Song {
 	var result []utils.Song
 	switch kind {
 	case utils.Album:
 		for _, song := range library.Songs {
-			if song.Album == source.Title /* && song.Artist == source.Artist */ {
+			if song.Album == title {
 				result = append(result, song)
 			}
 		}
 	case utils.Playlist:
-		songs, err := getSongsFromPlaylist(source.Title, library)
+		songs, err := getSongsFromPlaylist(title, library)
 		if err == nil {
 			result = songs
 		} else {

@@ -4,6 +4,7 @@ import (
 	"m/scripts"
 	"m/views"
 	"m/utils"
+	"m/lists"
 	"time"
 	"fmt"
 	tea "github.com/charmbracelet/bubbletea"
@@ -75,6 +76,7 @@ func (m Model) handleLibraryMsg(msg scripts.LibraryMsg) (tea.Model, tea.Cmd) {
 }
 
 func containsUIList(view utils.View) bool {
+	// currently, all views use UIList
 	return true
 }
 
@@ -84,7 +86,6 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.UIList, cmd = m.UIList.Update(msg)
 		return m, cmd
 	}
-
 	switch msg.String() {
 	case "ctrl+c", "q":
 		return m, tea.Quit
@@ -92,17 +93,48 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.IsPlaying = !m.IsPlaying 
 		return m, scripts.RunAsCmd("toggle", scripts.TogglePlayPause)
 	case "a":
-		utils.Log("a pressed")
 		return m, scripts.ChangeViewCmd(utils.Albums, views.NewAlbumList(m.Library.Albums))
-
 	case "p":
-		utils.Log("p pressed")
 		return m, scripts.ChangeViewCmd(utils.Playlists, views.NewPlaylistList(m.Library.Playlists))
+	case "b", "x":
+		return m, scripts.ChangeViewCmd(utils.Menu, views.NewMenuList())
+	case "enter":
+		return m.handleSelect()
 	}
-
 	var cmd tea.Cmd
 	m.UIList, cmd = m.UIList.Update(msg)
 	return m, cmd
 }
 
+func (m Model) handleSelect() (tea.Model, tea.Cmd) {
+	selected := m.UIList.SelectedItem()
+	item, ok := selected.(lists.ListItem)
+	if !ok {
+		return m, nil
+	}
+	title := item.Name
+	desc := item.Desc
+	switch m.CurrentView {
+	case utils.Albums:
+		songs := scripts.GetSongsFromSource(utils.Album, title, m.Library)
+		return m, scripts.ChangeViewCmd(utils.AlbumDetail, views.NewAlbumDetailList(songs, title, item.Desc))
+	case utils.Playlists:
+		songs := scripts.GetSongsFromSource(utils.Playlist, title, m.Library)
+		return m, scripts.ChangeViewCmd(utils.PlaylistDetail, views.NewPlaylistDetailList(songs, title, item.Desc))
+	case utils.PlaylistDetail:
+		if item.Id == "PLAY_ALL" {
+			scripts.PlayPlaylist(desc)
+		} else {
+			scripts.SelectTrack(item.Id)
+		}
+	case utils.AlbumDetail:
+		if item.Id == "PLAY_ALL" {
+			scripts.PlaySongList(scripts.GetSongsFromSource(utils.Album, desc, m.Library))
+		} else {
+			scripts.SelectTrack(item.Id)
+		}
+	case utils.Menu:
+	}
+	return m, nil
+}
 

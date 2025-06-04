@@ -10,13 +10,12 @@ import(
 )
 
 func NewAlbumDetailList(songs []utils.Song, name string, artist string) list.Model {
-	source_type_string := "ALBUM"
 	items := make([]list.Item, len(songs)+1)
 
 	items[0] = lists.ListItem {
-		Name: name,
-		Desc: "Play All",
-		Id:   "PLAY_" + source_type_string,
+		Name: "Play All",
+		Desc: name,
+		Id:   "PLAY_ALL",
 	}
 
 	for i, song := range songs {

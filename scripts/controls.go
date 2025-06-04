@@ -27,6 +27,7 @@ func PreviousTrack() error {
 }
 
 func PlayPlaylist(name string) error {
+	utils.Log(name)
 	script := fmt.Sprintf(`
 	tell application "Music"
 		play playlist "%s"
