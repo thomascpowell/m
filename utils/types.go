@@ -51,7 +51,7 @@ const (
 	Playlist
 )
 
-
+// Represents the possible UI Views
 type View int
 const (
 	Blank View = iota

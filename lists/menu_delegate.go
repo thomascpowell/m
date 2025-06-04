@@ -10,6 +10,11 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
+/*
+* Defines styling for a list item.
+* Used in Menu view.
+*/
+
 var (
 	itemStyle = lipgloss.NewStyle().PaddingLeft(4)
 	selectedItemStyle = lipgloss.NewStyle().PaddingLeft(2).Foreground(styles.Light)
@@ -36,6 +41,6 @@ func (d itemDelegate) Render(w io.Writer, m list.Model, index int, listItem list
 	fmt.Fprint(w, fn(str))
 }
 
-func BaseDelegate() itemDelegate {
+func MenuDelegate() itemDelegate {
 	return itemDelegate{}
 }

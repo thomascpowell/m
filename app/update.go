@@ -27,23 +27,31 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		return m.handleKeyMsg(msg)
 	case tea.WindowSizeMsg:
-		if containsUIList(m.CurrentView) && m.Loaded {
-			m.UIList.SetSize(msg.Width, msg.Height-4)
-		}
-		return m, nil
+ 		return m.handleWindowSizeMsg(msg)
 	case scripts.ChangeViewMsg:
 		return m.handleChangeViewMsg(msg)
 	}
-	// pass other keypresses to UIList
 	var cmd tea.Cmd
 	m.UIList, cmd = m.UIList.Update(msg)
 	return m, cmd
 }
 
+func (m *Model) handleWindowSizeMsg(msg tea.WindowSizeMsg) (tea.Model, tea.Cmd) {
+	if !m.Loaded {
+		return *m, nil
+	}
+	if m.CurrentView == utils.Menu {
+		m.UIList.SetSize(msg.Width, msg.Height-4)
+		return *m, nil
+	}
+	m.UIList.SetSize(msg.Width, msg.Height)
+	return *m, nil
+}
+
 func (m *Model) handleChangeViewMsg(msg scripts.ChangeViewMsg) (tea.Model, tea.Cmd) {
-	utils.Log("HCVM")
 	m.CurrentView = msg.View
 	m.UIList = msg.List
+	m.Loaded = true
 	return *m, nil
 }
 

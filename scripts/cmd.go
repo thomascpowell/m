@@ -83,29 +83,6 @@ func RefreshLibraryCmd() tea.Cmd {
 	}
 }
 
-// Handles data fetching for playlist or album views.
-// Sends List struct to update the CurrentList.
-// Updates CurrentList to specified album or playlist.
-func UpdateListCmd(kind utils.SourceType, source utils.Source, library utils.Library) tea.Cmd {
-	return func() tea.Msg {
-		songs := GetSongsFromSource(kind, source.Title, library)
-		return ListMsg {
-			Name: source.Title,
-			Owner: source.Artist,
-			Songs: songs,
-		}
-	}
-}
-type ListMsg utils.List
-
-// prompts the update loop to initialize the base view.
-func InitBaseListCmd() tea.Cmd {
-	return func() tea.Msg {
-		return InitBaseListMsg{}
-	}
-}
-type InitBaseListMsg struct{}
-
 // sends a cmd -> msg that directs Update() to change the view
 // used to update state, including CurrentView and UIList
 func ChangeViewCmd(view utils.View, list list.Model) tea.Cmd {

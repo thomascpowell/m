@@ -30,7 +30,7 @@ func NewMenuList() list.Model {
 	if err != nil {
 		utils.Log("NSL: " + err.Error())
 	}
-	l := list.New(items, lists.BaseDelegate(), width, height-4)
+	l := list.New(items, lists.MenuDelegate(), width, height-4)
 	l.Title = "Options:"
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(false)
