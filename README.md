@@ -1,4 +1,4 @@
-(WIP, INCOMPLETE) A CLI application for controlling Music.app on macOS. 
+(WIP) A CLI application for controlling Music.app on macOS. 
 
 Features:
 - Clean TUI for browsing music library

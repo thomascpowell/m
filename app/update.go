@@ -97,16 +97,12 @@ func (m Model) handleKeyMsg(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	switch msg.String() {
 	case "ctrl+c", "q":
 		return m, tea.Quit
-	case " ":
-		m.IsPlaying = !m.IsPlaying 
-		return m, scripts.RunAsCmd("toggle", scripts.TogglePlayPause)
-	case "a":
-		return m, scripts.ChangeViewCmd(utils.Albums, views.NewAlbumList(m.Library.Albums))
-	case "p":
-		return m, scripts.ChangeViewCmd(utils.Playlists, views.NewPlaylistList(m.Library.Playlists))
 	case "b", "x":
 		return m, scripts.ChangeViewCmd(utils.Menu, views.NewMenuList())
 	case "enter":
+		if m.CurrentView == utils.Menu {
+			return m.handleMenuSelect()
+		}
 		return m.handleSelect()
 	}
 	var cmd tea.Cmd
@@ -141,8 +137,28 @@ func (m Model) handleSelect() (tea.Model, tea.Cmd) {
 		} else {
 			scripts.SelectTrack(item.Id)
 		}
-	case utils.Menu:
 	}
 	return m, nil
 }
 
+func (m Model) handleMenuSelect() (tea.Model, tea.Cmd) {
+	selected := m.UIList.SelectedItem()
+	item, ok := selected.(lists.BaseListItem)
+	if !ok {
+		return m, nil
+	}
+	action := item.Action
+	utils.Log("MENUACTION: " + action)
+	switch action {
+	case "PLAY_PAUSE":
+		m.IsPlaying = !m.IsPlaying 
+		return m, scripts.RunAsCmd("PLAY_PAUSE", scripts.TogglePlayPause)
+	case "SKIP":
+		return m, scripts.RunAsCmd("SKIP", scripts.NextTrack)
+	case "SHOW_ALBUMS":
+		return m, scripts.ChangeViewCmd(utils.Albums, views.NewAlbumList(m.Library.Albums))
+	case "SHOW_PLAYLISTS":
+		return m, scripts.ChangeViewCmd(utils.Playlists, views.NewPlaylistList(m.Library.Playlists))
+	}
+	return m, nil
+}

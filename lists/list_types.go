@@ -31,7 +31,7 @@ type BaseListItem struct {
 func (a BaseListItem) Title() string {
 	return a.Name
 }
-func (i BaseListItem) Description() string { return "" }
+func (a BaseListItem) Description() string { return a.Action }
 func (a BaseListItem) FilterValue() string {
 	return a.Name
 }
