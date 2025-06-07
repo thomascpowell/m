@@ -14,23 +14,28 @@ func NewMenuList() list.Model {
 	utils.Log("NML")
 	items := []list.Item{
 		lists.BaseListItem{
-			Name:   "Play",
-			Action: "NO_ACTION",
+			Name:   "Play/Pause",
+			Action: "PLAY_PAUSE",
 		},
 		lists.BaseListItem{
-			Name:   "Pause",
-			Action: "NO_ACTION",
+			Name:   "Skip Track",
+			Action: "SKIP",
+		},	
+		lists.BaseListItem{
+			Name:   "Playlists",
+			Action: "SHOW_PLAYLISTS",
 		},
 		lists.BaseListItem{
-			Name:   "Example",
-			Action: "NO_ACTION",
+			Name:   "Albums",
+			Action: "SHOW_ALBUMS",
 		},
+
 	}
 	width, height, err := term.GetSize(int(os.Stdout.Fd()))
 	if err != nil {
 		utils.Log("NSL: " + err.Error())
 	}
-	l := list.New(items, lists.MenuDelegate(), width, height-4)
+	l := list.New(items, lists.MenuDelegate(), width, height-5)
 	l.Title = "Options:"
 	l.SetShowStatusBar(false)
 	l.SetFilteringEnabled(false)

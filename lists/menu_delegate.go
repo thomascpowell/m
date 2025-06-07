@@ -16,8 +16,8 @@ import (
 */
 
 var (
-	itemStyle = lipgloss.NewStyle().PaddingLeft(4)
-	selectedItemStyle = lipgloss.NewStyle().PaddingLeft(2).Foreground(styles.Light)
+	itemStyle = lipgloss.NewStyle().PaddingLeft(2).Foreground(styles.Dim)
+	selectedItemStyle = lipgloss.NewStyle().PaddingLeft(0).Foreground(styles.Light)
 )
 
 type itemDelegate struct{}
@@ -31,7 +31,7 @@ func (d itemDelegate) Render(w io.Writer, m list.Model, index int, listItem list
 	if !ok {
 		return
 	}
-	str := fmt.Sprintf("%d. %s", index+1, i)
+	str := fmt.Sprintf("%s", i.Name)
 	fn := itemStyle.Render
 	if index == m.Index() {
 		fn = func(s ...string) string {

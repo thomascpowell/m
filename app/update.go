@@ -41,7 +41,7 @@ func (m *Model) handleWindowSizeMsg(msg tea.WindowSizeMsg) (tea.Model, tea.Cmd) 
 		return *m, nil
 	}
 	if m.CurrentView == utils.Menu {
-		m.UIList.SetSize(msg.Width, msg.Height-4)
+		m.UIList.SetSize(msg.Width, msg.Height-5)
 		return *m, nil
 	}
 	m.UIList.SetSize(msg.Width, msg.Height)
