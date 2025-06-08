@@ -5,6 +5,11 @@ Features:
 - Playback controls (play, pause, next, previous)
 - Soon: CLI arguments for quick actions
 
+Benefits (compared to native app):
+- Faster, keyboard based navigation
+- Supports all window sizes
+- Far cooler
+
 Installation:
 - Soon: Installation script
 
