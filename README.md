@@ -5,7 +5,7 @@
 - Playback controls (play, pause, next)
 - Soon: CLI arguments for quick actions
 
-Benefits (compared to native app):
+### Benefits (compared to native app):
 - Faster, keyboard based navigation
 - Supports all window sizes
 - Far cooler
