@@ -1,7 +1,7 @@
 package utils
 
 import (
-    "os"
+	"os"
 )
 
 /**
@@ -10,8 +10,8 @@ import (
 
 
 // if this is true, a log file (m.txt) will be created in the event of a (handled) error
-// diable for distribution?
-const ENABLE_LOGS = true
+// disabled for distribution
+const ENABLE_LOGS = false
 
 func Log(msg string) {
 	if !ENABLE_LOGS {
