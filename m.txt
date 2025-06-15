@@ -1,0 +1,357 @@
+
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) HELLO FROM
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) HELLO FROM MENU
+
+(MESSAGE) MENUACTION: 
+
+(MESSAGE) HELLO FROM MENU
+
+(MESSAGE) MENUACTION: 
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) 2
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_ALBUMS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_ALBUMS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_ALBUMS
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SHOW_ALBUMS
+
+(MESSAGE) NML
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) study
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_ALBUMS
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_ALBUMS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) NML
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) sge4
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_ALBUMS
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) every song i have ever seen
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) sge4
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) sge4
+
+(MESSAGE) NML
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) sge4
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_ALBUMS
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1604 albums=333 playlists=11
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) every song i have ever seen
+
+(MESSAGE) NML
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1605 albums=334 playlists=11
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1605 albums=334 playlists=11
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1605 albums=334 playlists=8
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1605 albums=334 playlists=8
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) NML
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) GetCurrentSongObject: AppleScript Error - exit status 1
+
+(MESSAGE) 3
+
+(MESSAGE) NML
+
+(MESSAGE) getSongs: Malformed response detected.
+
+(MESSAGE) handleLibraryMsg: songs=1605 albums=334 playlists=8
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) sge4
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: PLAY_PAUSE
+
+(MESSAGE) MENUACTION: SKIP
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_ALBUMS
+
+(MESSAGE) NML
+
+(MESSAGE) MENUACTION: SHOW_PLAYLISTS
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1605 albums=334 playlists=8
+
+(MESSAGE) NML
+
+(MESSAGE) handleLibraryMsg: songs=1605 albums=334 playlists=8
