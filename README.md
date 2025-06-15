@@ -20,18 +20,19 @@
 - Make sure `$HOME/.local/bin` is in your `$PATH`
 
 ### Usage:
-1. Clone and enter the repo: 
-    ```zsh
-    git clone https://github.com/thomascpowell/m.git && cd m
-    ```
-2. Build and install: 
-    ```zsh
-    go build -o m && install m "$HOME/.local/bin/m"
-    ```
-3. Run it: 
-    ```zsh
-    m
-    ```
+```zsh
+# Clone and enter the repo
+git clone https://github.com/thomascpowell/m.git && cd m
+
+# Build and install
+go build -o m && install m "$HOME/.local/bin/m"
+
+# Run the program
+m
+
+# Optional: Remove the repo
+cd .. && rm -rf m
+```
 
 ### Notes:
 - This is a side project. Please only use it if you are comfortable in the terminal.
