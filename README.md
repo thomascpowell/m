@@ -18,8 +18,6 @@
 ### Installation:
 - Have `git` and `go` installed
 - Make sure `$HOME/.local/bin` is in your `$PATH`
-
-### Usage:
 ```zsh
 # Clone and enter the repo
 git clone https://github.com/thomascpowell/m.git && cd m
