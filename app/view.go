@@ -33,6 +33,9 @@ func ShowMenuView(m Model) string {
 			m.CurrentSong.Title,
 			m.CurrentSong.Artist,
 			scripts.IsPlayingToString(m.IsPlaying))
+	if m.CurrentSong.Title == "" {
+		text = "\nNot Playing\n\n\n"
+	}
 	now_playing := lipgloss.NewStyle().PaddingLeft(2).Render(text)
 	return lipgloss.JoinVertical(lipgloss.Left, now_playing, m.UIList.View())
 }
