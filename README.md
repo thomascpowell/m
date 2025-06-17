@@ -1,14 +1,13 @@
 ## A CLI application for controlling Music.app on macOS. 
 
 ### Features:
-- Clean TUI for browsing music library
+- TUI for browsing music library
 - Playback controls (play, pause, next)
 - Soon: CLI arguments for quick actions
 
-### Benefits (compared to native app):
-- Faster, keyboard based navigation
-- Supports all window sizes
-- Far cooler
+### Benefits (vs native app):
+- Faster (keyboard based) navigation
+- Supports small/narrow window sizes
 
 ### Technical Details:
 - Written in Go with an MVC architecture
