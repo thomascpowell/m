@@ -10,8 +10,7 @@
 - Supports small/narrow window sizes
 
 ### Technical Details:
-- Written in Go with an MVC architecture
-- Uses AppleScript to communicate with music.app
+- Communicates with music.app via AppleScript
 - Caches library data locally for fast startup
 
 ### Installation:
