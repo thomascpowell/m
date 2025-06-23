@@ -1,10 +1,11 @@
-## A CLI application for controlling Music.app on macOS. 
+## Control Music.app from the terminal. 
 
 ### Features:
-- Browse library and control playback
-- TUI (`m`) and CLI (`m help`)
+- Browse your existing music library from the terminal
+- Supports album, playlist, and song playback
+- Playback controls with CLI args (try `m help`)
 
-### Benefits (vs native app):
+### Benefits:
 - Faster (keyboard based) navigation
 - Supports small/narrow window sizes
 
@@ -22,11 +23,11 @@ git clone https://github.com/thomascpowell/m.git && cd m
 # Build and install
 go build -o m && install m "$HOME/.local/bin/m"
 
-# Run the program
-m
-
 # Optional: Remove the repo
 cd .. && rm -rf m
+
+# Run the program
+m
 ```
 
 ### Notes:
