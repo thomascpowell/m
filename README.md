@@ -1,9 +1,8 @@
 ## A CLI application for controlling Music.app on macOS. 
 
 ### Features:
-- TUI for browsing music library
-- Playback controls (play, pause, next)
-- Soon: CLI arguments for quick actions
+- Browse library and control playback
+- TUI (`m`) and CLI (`m help`)
 
 ### Benefits (vs native app):
 - Faster (keyboard based) navigation
