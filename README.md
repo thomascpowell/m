@@ -1,17 +1,18 @@
 ## Control Music.app from the terminal. 
 
 ### Features:
-- Browse your existing music library from the terminal
+- Browse your existing Apple Music library
 - Supports album, playlist, and song playback
-- Full playback controls (play, pause, skip)
 - Quick actions with CLI args (try `m help`)
 
 ### Benefits:
-- Faster (keyboard based) navigation
+- Faster (keyboard) navigation
 - Supports small/narrow window sizes
+- Far cooler (if you like the terminal)
 
 ### Technical Details:
-- Communicates with music.app via AppleScript
+- Communicates with Music.app via AppleScript
+- Core functionality written in pure Go
 - Caches library data locally for fast startup
 
 ### Installation:
@@ -27,11 +28,10 @@ go build -o m && install m "$HOME/.local/bin/m"
 # Optional: Remove the repo
 cd .. && rm -rf m
 
-# Run the program
+# Launch the TUI
 m
 ```
 
 ### Notes:
 - This is a side project. Please only use it if you are comfortable in the terminal.
-- A temporary playlist is created in Apple Music when playing an album. This is due to limitations inherent to AppleScript. It is safe to delete.
-
+- A temporary playlist is created in Apple Music when playing an album.
