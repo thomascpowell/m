@@ -32,5 +32,5 @@ cd .. && rm -rf m
 
 ### Notes:
 - This is a side project. Please only use it if you are comfortable in the terminal.
-- Due to AppleScript limitations, this project creates a temporary playlist in Apple Music.
+- A temporary playlist is created in Apple Music when playing an album. This is due to limitations inherent to AppleScript. It is safe to delete.
 
