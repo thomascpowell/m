@@ -3,7 +3,8 @@
 ### Features:
 - Browse your existing music library from the terminal
 - Supports album, playlist, and song playback
-- Playback controls with CLI args (try `m help`)
+- Full playback controls (play, pause, skip)
+- Quick actions with CLI args (try `m help`)
 
 ### Benefits:
 - Faster (keyboard based) navigation
