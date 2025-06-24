@@ -27,7 +27,6 @@ func main() {
 func handleArgs(args []string) {
 	usage := "Usage: m [play|skip|prev]"
 	cmd := strings.ToLower(args[0])
-	args_count := len(args)
 	switch cmd {
 	case "play", "pause", "p":
 		_ = scripts.RunAsCli("Toggling playback", "✓", scripts.TogglePlayPause)
@@ -39,8 +38,6 @@ func handleArgs(args []string) {
 		_ = scripts.RunAsCli("Rewinding", "✓", scripts.PreviousTrack)
 		return
 	}
-	if args_count != 2 {
-		println(usage)
-		return
-	}
+	println(usage)
+	return
 }
