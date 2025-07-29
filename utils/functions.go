@@ -6,15 +6,14 @@ import (
 
 /**
 * Contains utility functions.
-*/
-
+ */
 
 func FileExists(path string) bool {
 	_, err := os.Stat(path)
 	return err == nil
 }
 
-func GetHomePath() (string) {
+func GetHomePath() string {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return ""

@@ -7,8 +7,7 @@ import (
 
 /**
 * Functions to get the current state of the music player.
-*/
-
+ */
 
 func GetPlayerState() (utils.Song, bool) {
 	raw, err := Run(`tell application "Music"
@@ -49,4 +48,4 @@ func IsPlayingToString(isPlaying bool) string {
 		return "playing"
 	}
 	return "stopped"
-} 
+}

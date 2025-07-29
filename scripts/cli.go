@@ -6,7 +6,7 @@ import (
 
 /**
 * Wrapper for use in CLI commands.
-*/
+ */
 
 // function standardizes CLI mode output
 // progressive (tense): string for ongoing action, e.g. pausing

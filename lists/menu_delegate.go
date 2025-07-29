@@ -2,28 +2,28 @@ package lists
 
 import (
 	"fmt"
+	"github.com/charmbracelet/bubbles/list"
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	"io"
 	"m/styles"
 	"strings"
-	"github.com/charmbracelet/bubbles/list"
-	tea "github.com/charmbracelet/bubbletea"	
-	"github.com/charmbracelet/lipgloss"
 )
 
 /*
 * Defines styling for a list item.
 * Used in Menu view.
-*/
+ */
 
 var (
-	itemStyle = lipgloss.NewStyle().PaddingLeft(2).Foreground(styles.Dim)
+	itemStyle         = lipgloss.NewStyle().PaddingLeft(2).Foreground(styles.Dim)
 	selectedItemStyle = lipgloss.NewStyle().PaddingLeft(0).Foreground(styles.Light)
 )
 
 type itemDelegate struct{}
 
-func (d itemDelegate) Height() int { return 1 }
-func (d itemDelegate) Spacing() int { return 0 }
+func (d itemDelegate) Height() int                             { return 1 }
+func (d itemDelegate) Spacing() int                            { return 0 }
 func (d itemDelegate) Update(_ tea.Msg, _ *list.Model) tea.Cmd { return nil }
 
 func (d itemDelegate) Render(w io.Writer, m list.Model, index int, listItem list.Item) {

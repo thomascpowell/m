@@ -1,16 +1,15 @@
 package app
 
-import(
+import (
 	"fmt"
+	"github.com/charmbracelet/lipgloss"
 	"m/scripts"
 	"m/utils"
-	"github.com/charmbracelet/lipgloss"
 )
 
 /**
 * tea View() function.
-*/
-
+ */
 
 func (m Model) View() string {
 	switch m.CurrentView {
@@ -29,14 +28,13 @@ func ShowView(m Model) string {
 
 func ShowMenuView(m Model) string {
 	text := fmt.Sprintf(
-			"\n%s — %s\n(%s)\n\n",
-			m.CurrentSong.Title,
-			m.CurrentSong.Artist,
-			scripts.IsPlayingToString(m.IsPlaying))
+		"\n%s — %s\n(%s)\n\n",
+		m.CurrentSong.Title,
+		m.CurrentSong.Artist,
+		scripts.IsPlayingToString(m.IsPlaying))
 	if m.CurrentSong.Title == "" {
 		text = "\nNot Playing\n\n\n"
 	}
 	now_playing := lipgloss.NewStyle().PaddingLeft(2).Render(text)
 	return lipgloss.JoinVertical(lipgloss.Left, now_playing, m.UIList.View())
 }
-

@@ -1,13 +1,13 @@
 package views
 
-import(
-	"m/utils"
-	"m/styles"
-	"m/lists"
-	"github.com/charmbracelet/lipgloss"
-	"os"
-	"golang.org/x/term"
+import (
 	"github.com/charmbracelet/bubbles/list"
+	"github.com/charmbracelet/lipgloss"
+	"golang.org/x/term"
+	"m/lists"
+	"m/styles"
+	"m/utils"
+	"os"
 )
 
 func NewMenuList() list.Model {
@@ -20,7 +20,7 @@ func NewMenuList() list.Model {
 		lists.BaseListItem{
 			Name:   "Skip Track",
 			Action: "SKIP",
-		},	
+		},
 		lists.BaseListItem{
 			Name:   "Playlists",
 			Action: "SHOW_PLAYLISTS",
@@ -29,7 +29,6 @@ func NewMenuList() list.Model {
 			Name:   "Albums",
 			Action: "SHOW_ALBUMS",
 		},
-
 	}
 	width, height, err := term.GetSize(int(os.Stdout.Fd()))
 	if err != nil {
@@ -44,5 +43,3 @@ func NewMenuList() list.Model {
 	l.Styles.Title = title_style
 	return l
 }
-
-

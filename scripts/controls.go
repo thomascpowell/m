@@ -8,8 +8,7 @@ import (
 
 /**
 * AppleScript wrappers for controlling Apple Music.
-*/
-
+ */
 
 func TogglePlayPause() error {
 	_, err := Run(`tell application "Music" to playpause`)
@@ -47,7 +46,7 @@ func PlaySongList(songs []utils.Song) error {
 		set shuffle enabled to false
 		set temporary to make new playlist with properties {name:"temporary"}`)
 	for _, song := range songs {
-		script.WriteString(fmt.Sprintf("\n" + `duplicate (some track whose persistent ID is "%s") to temporary`, song.SongId))
+		script.WriteString(fmt.Sprintf("\n"+`duplicate (some track whose persistent ID is "%s") to temporary`, song.SongId))
 	}
 	script.WriteString(`
 		play temporary
@@ -62,7 +61,7 @@ func SelectTrack(id string) error {
 		set t to (some track whose persistent ID is "%s")
 		play t
 	end tell`, id)
-	_, err := Run(script)	
+	_, err := Run(script)
 	return err
 }
 
@@ -78,4 +77,3 @@ func ToggleShuffle(enable bool) error {
 	end tell`)
 	return err
 }
-

@@ -1,16 +1,16 @@
 package main
 
 import (
+	tea "github.com/charmbracelet/bubbletea"
+	"m/app"
+	"m/scripts"
 	"os"
 	"strings"
-	"m/scripts"
-	"m/app"
-	tea "github.com/charmbracelet/bubbletea"
 )
 
 /**
 * Starts the application.
-*/
+ */
 
 func main() {
 	args := os.Args[1:]
@@ -20,7 +20,7 @@ func main() {
 	}
 	p := tea.NewProgram(app.Model{}, tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
-			os.Exit(1)
+		os.Exit(1)
 	}
 }
 

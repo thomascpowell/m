@@ -2,12 +2,12 @@ package scripts
 
 /**
 * Shared AppleScript wrappers.
-*/
+ */
 
 import (
-	"strings"
 	"bytes"
 	"os/exec"
+	"strings"
 )
 
 func Run(command string) (string, error) {
@@ -20,6 +20,3 @@ func Run(command string) (string, error) {
 	}
 	return strings.TrimRight(out.String(), "\r\n"), nil
 }
-
-
-

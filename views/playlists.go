@@ -1,20 +1,20 @@
 package views
 
-import(
-	"m/utils"
-	"m/styles"
-	"m/lists"
-	"os"
+import (
 	"github.com/charmbracelet/bubbles/list"
 	"golang.org/x/term"
+	"m/lists"
+	"m/styles"
+	"m/utils"
+	"os"
 )
 
 func NewPlaylistList(sources []utils.Source) list.Model {
 	items := make([]list.Item, len(sources))
 	for i, source := range sources {
-		items[i] = lists.ListItem {
-			Name: 	source.Title,
-			Desc:   source.Artist,
+		items[i] = lists.ListItem{
+			Name: source.Title,
+			Desc: source.Artist,
 		}
 	}
 	width, height, err := term.GetSize(int(os.Stdout.Fd()))

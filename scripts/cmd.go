@@ -1,16 +1,15 @@
 package scripts
 
 import (
+	"github.com/charmbracelet/bubbles/list"
+	tea "github.com/charmbracelet/bubbletea"
 	"m/utils"
 	"time"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/bubbles/list"
 )
 
 /**
 * tea.Cmd functions.
-*/
-
+ */
 
 // Wraps sync functions.
 // Used for control commands, not data fetching.
@@ -18,29 +17,30 @@ func RunAsCmd(name string, fn func() error) tea.Cmd {
 	return func() tea.Msg {
 		err := fn()
 		if err != nil {
-			utils.Log("RunAsCmd - " + name + ": " +  err.Error())
+			utils.Log("RunAsCmd - " + name + ": " + err.Error())
 		}
-		return CmdResultMsg {}
+		return CmdResultMsg{}
 	}
 }
-type CmdResultMsg struct {}
 
+type CmdResultMsg struct{}
 
 // Handles state refesh ticks.
 // Sends StateMsg with updated results.
 func RefreshStateCmd() tea.Cmd {
 	return func() tea.Msg {
 		current_song, player_state := GetPlayerState()
-		return StateMsg { 
-			IsPlaying:  player_state,
+		return StateMsg{
+			IsPlaying:   player_state,
 			CurrentSong: current_song,
 		}
 	}
 }
+
 // Contains updated state.
-type StateMsg struct {	
-	CurrentSong	utils.Song
-	IsPlaying		bool
+type StateMsg struct {
+	CurrentSong utils.Song
+	IsPlaying   bool
 }
 
 // handles initial loading of music sources
@@ -48,15 +48,15 @@ type StateMsg struct {
 func GetLibraryCmd() tea.Cmd {
 	CACHE_PATH := utils.GetGlobalCachePath()
 	return func() tea.Msg {
-		var(
+		var (
 			library *utils.Library
-			err error
+			err     error
 		)
 		if utils.FileExists(CACHE_PATH) {
 			library, err = LoadLibrary(CACHE_PATH)
 		} else {
 			library, err = GetLibraryData()
-				_ = SaveLibrary(library, CACHE_PATH)
+			_ = SaveLibrary(library, CACHE_PATH)
 		}
 		if err != nil {
 			utils.Log("GetLibraryData:" + err.Error())
@@ -65,6 +65,7 @@ func GetLibraryCmd() tea.Cmd {
 		return LibraryMsg(*library)
 	}
 }
+
 type LibraryMsg utils.Library
 
 // handles refreshing the library
@@ -75,8 +76,8 @@ func RefreshLibraryCmd() tea.Cmd {
 		time.Sleep(30 * time.Second)
 		library, err := GetLibraryData()
 		if err != nil {
-				utils.Log("RefreshLibraryCmd:" + err.Error())
-				return nil
+			utils.Log("RefreshLibraryCmd:" + err.Error())
+			return nil
 		}
 		_ = SaveLibrary(library, CACHE_PATH)
 		return LibraryMsg(*library)
@@ -87,12 +88,13 @@ func RefreshLibraryCmd() tea.Cmd {
 // used to update state, including CurrentView and UIList
 func ChangeViewCmd(view utils.View, list list.Model) tea.Cmd {
 	return func() tea.Msg {
-		return ChangeViewMsg {
+		return ChangeViewMsg{
 			View: view,
 			List: list,
 		}
 	}
-} 
+}
+
 type ChangeViewMsg struct {
 	View utils.View // the view to change to
 	List list.Model // the list to be placed in m.UIList

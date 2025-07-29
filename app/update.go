@@ -1,24 +1,23 @@
 package app
 
 import (
-	"m/scripts"
-	"m/views"
-	"m/utils"
-	"m/lists"
-	"time"
 	"fmt"
-	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/bubbles/list"
+	tea "github.com/charmbracelet/bubbletea"
+	"m/lists"
+	"m/scripts"
+	"m/utils"
+	"m/views"
+	"time"
 )
 
 /**
 * Contains the update loop and associated functions.
-*/
-
+ */
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-	case scripts.LibraryMsg:		
+	case scripts.LibraryMsg:
 		return m.handleLibraryMsg(msg)
 	case scripts.StateMsg:
 		return m.handleStateMsg(msg)
@@ -27,7 +26,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		return m.handleKeyMsg(msg)
 	case tea.WindowSizeMsg:
- 		return m.handleWindowSizeMsg(msg)
+		return m.handleWindowSizeMsg(msg)
 	case scripts.ChangeViewMsg:
 		return m.handleChangeViewMsg(msg)
 	}
@@ -60,6 +59,7 @@ func TickCmd() tea.Cmd {
 		return tickMsg{}
 	})
 }
+
 type tickMsg struct{}
 
 func (m Model) handleStateMsg(msg scripts.StateMsg) (tea.Model, tea.Cmd) {
@@ -73,12 +73,12 @@ func (m Model) handleTickMsg() (tea.Model, tea.Cmd) {
 }
 
 func (m Model) handleLibraryMsg(msg scripts.LibraryMsg) (tea.Model, tea.Cmd) {
-	m.Library = utils.Library {
-		Songs: msg.Songs,
-		Albums: msg.Albums,
+	m.Library = utils.Library{
+		Songs:     msg.Songs,
+		Albums:    msg.Albums,
 		Playlists: msg.Playlists,
 	}
-	utils.Log(fmt.Sprintf("handleLibraryMsg: songs=%d albums=%d playlists=%d", 
+	utils.Log(fmt.Sprintf("handleLibraryMsg: songs=%d albums=%d playlists=%d",
 		len(msg.Songs), len(msg.Albums), len(msg.Playlists)))
 	return m, nil
 }
@@ -151,7 +151,7 @@ func (m Model) handleMenuSelect() (tea.Model, tea.Cmd) {
 	utils.Log("MENUACTION: " + action)
 	switch action {
 	case "PLAY_PAUSE":
-		m.IsPlaying = !m.IsPlaying 
+		m.IsPlaying = !m.IsPlaying
 		return m, scripts.RunAsCmd("PLAY_PAUSE", scripts.TogglePlayPause)
 	case "SKIP":
 		return m, scripts.RunAsCmd("SKIP", scripts.NextTrack)

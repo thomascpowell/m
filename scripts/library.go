@@ -1,18 +1,17 @@
 package scripts
 
 import (
-	"strings"
-	"strconv"
-	"m/utils"
-	"fmt"
-	"os"
 	"encoding/gob"
+	"fmt"
+	"m/utils"
+	"os"
+	"strconv"
+	"strings"
 )
 
 /**
 * Functions for fetching Library data.
-*/
-
+ */
 
 // For initial fetching of library data
 func GetLibraryData() (*utils.Library, error) {
@@ -59,11 +58,11 @@ func getSongs() ([]utils.Song, error) {
 			continue
 		}
 		song := utils.Song{
-			SongId: parts[0],
-			Title: parts[1],
-			Artist: parts[2],
+			SongId:   parts[0],
+			Title:    parts[1],
+			Artist:   parts[2],
 			Duration: ParseDuration(parts[3]),
-			Album: parts[4],
+			Album:    parts[4],
 		}
 		songs = append(songs, song)
 	}
@@ -85,10 +84,10 @@ func getPlaylists() ([]utils.Source, error) {
 		return nil, err
 	}
 	lines := strings.Split(raw, "\n")
-  res := make([]utils.Source, 0, len(lines))
+	res := make([]utils.Source, 0, len(lines))
 	for _, l := range lines {
-		res = append(res, utils.Source {
-			Title: l,
+		res = append(res, utils.Source{
+			Title:  l,
 			Artist: "You",
 		})
 	}
@@ -100,16 +99,16 @@ func getPlaylists() ([]utils.Source, error) {
 func computeAlbums(songs []utils.Song) ([]utils.Source, error) {
 	albumToArtist := make(map[string]string) // title to artist
 	for _, song := range songs {
-			if _, exists := albumToArtist[song.Album]; !exists {
-					albumToArtist[song.Album] = song.Artist
-			}
+		if _, exists := albumToArtist[song.Album]; !exists {
+			albumToArtist[song.Album] = song.Artist
+		}
 	}
 	albums := make([]utils.Source, 0, len(albumToArtist))
 	for album, artist := range albumToArtist {
-			albums = append(albums, utils.Source{
-					Title:   album,
-					Artist: artist,
-			})
+		albums = append(albums, utils.Source{
+			Title:  album,
+			Artist: artist,
+		})
 	}
 	return albums, nil
 }

@@ -1,19 +1,18 @@
 package lists
 
 import (
-	"m/styles"
 	"github.com/charmbracelet/bubbles/list"
+	"m/styles"
 )
 
 /*
 * Defines styling for a list item.
 * Used in all views but the base.
-*/
-
+ */
 
 func ListDelegate() list.DefaultDelegate {
 	d := list.NewDefaultDelegate()
-	
+
 	selectedTitle := d.Styles.SelectedTitle
 	selectedDesc := d.Styles.SelectedDesc
 	normalTitle := d.Styles.NormalTitle
@@ -31,4 +30,3 @@ func ListDelegate() list.DefaultDelegate {
 
 	return d
 }
-
